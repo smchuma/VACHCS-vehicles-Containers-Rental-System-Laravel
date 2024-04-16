@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\admin\AdminDashboard;
+use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +30,29 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+// admin login
+
+
+Route::group(['prefix' => 'admin'], function() {
+
+    Route::group(['middleware' => 'admin.guest'], function() {
+        Route::get("/", [AdminLoginController::class,"index"])->name("admin.login");
+        Route::post('/authenticate', [AdminLoginController:: class, 'authenticate'])->name('admin.authenticate');
+
+
+    });
+
+    Route::group(['middleware' => 'admin.auth'], function() {
+        Route::get('/dashboard', [AdminDashboard::class, 'index'] )->name('admin.dashboard');
+        Route::post('/logout', [AdminDashboard::class, 'logout'])->name('admin.logout');
+
+    });
+
+});
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
