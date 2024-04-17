@@ -5,14 +5,17 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 
-export default function AdminLogin({ status }) {
+export default function AdminLogin({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
         remember: false,
     });
+
+    const loginErrors = usePage().props.errors;
+    console.log(loginErrors);
 
     useEffect(() => {
         return () => {
@@ -35,7 +38,17 @@ export default function AdminLogin({ status }) {
                     {status}
                 </div>
             )}
-            <h1 className="text-center py-5">Admin Panel</h1>
+            <h1 className="text-center mb-4 font-semibold ">Admin Panel</h1>
+
+            {loginErrors && (
+                <p className="text-red-500 mb-2 text-md font-bold text-center ">
+                    {Object.values(loginErrors)
+                        .flat()
+                        .map((error) => (
+                            <p key={error}>{error}</p>
+                        ))}
+                </p>
+            )}
 
             <form onSubmit={submit}>
                 <div>
@@ -70,7 +83,6 @@ export default function AdminLogin({ status }) {
 
                     <InputError message={errors.password} className="mt-2" />
                 </div>
-
                 <div className="block mt-4">
                     <label className="flex items-center">
                         <Checkbox
@@ -86,8 +98,8 @@ export default function AdminLogin({ status }) {
                     </label>
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                <div className="flex items-center mt-8 mb-10">
+                    <PrimaryButton className="w-full" disabled={processing}>
                         Log in
                     </PrimaryButton>
                 </div>

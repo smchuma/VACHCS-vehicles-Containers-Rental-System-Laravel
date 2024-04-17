@@ -1,4 +1,5 @@
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
+import { usePage } from "@inertiajs/react";
 
 const Dashboard = () => {
     return (

@@ -26,24 +26,26 @@ class AdminLoginController extends Controller
         if($validator->passes()) {
 
             if(Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password],
-            $request->get('remember'))) {
+            $request->has('remember'))) {
 
                 $admin = Auth::guard('admin')->user();
 
-                if($admin->role == 1) {
+                if($admin->role === 1) {
                 return redirect()->route('admin.dashboard');
                 } else {
 
                 Auth::guard('admin')->logout();
 
-                return redirect()->route('admin.login')
-                ->with('error', 'Not authorized to access admin panel');
+                return Inertia::render('Admin/Auth/AdminLogin', [
+                    'errors' => ['role' => 'Not authorized to access admin panel'],
+                ]);
                 }
 
             } else {
 
-                return redirect()->route('admin.login')
-                ->with('error', 'Your email or password is incorrect');
+                return Inertia::render('Admin/Auth/AdminLogin', [
+                    'errors' => ['login' => 'Your email or password is incorrect'],
+                ]);
             }
 
         } else {
