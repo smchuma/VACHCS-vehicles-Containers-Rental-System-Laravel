@@ -1,11 +1,11 @@
 import AdminAuthenticatedLayout from "@/Layouts/AdminAuthenticatedLayout";
 
-const AdminDashboard = () => {
+const Vehicles = () => {
     return (
         <AdminAuthenticatedLayout>
-            <div>Dashboard</div>
+            <div>Customers</div>
         </AdminAuthenticatedLayout>
     );
 };
 
-export default AdminDashboard;
+export default Vehicles;

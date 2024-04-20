@@ -36,7 +36,7 @@ const Navbar = ({ user, header }) => {
                                 Profile
                             </Dropdown.Link>
                             <Dropdown.Link
-                                href={route("logout")}
+                                href={route("admin.logout")}
                                 method="post"
                                 as="button"
                             >

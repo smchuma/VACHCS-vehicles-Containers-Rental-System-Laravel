@@ -2,38 +2,28 @@
 
 use App\Http\Controllers\admin\AdminDashboard;
 use App\Http\Controllers\admin\AdminLoginController;
+use App\Http\Controllers\admin\CustomerController;
+use App\Http\Controllers\admin\EmployeeController;
+use App\Http\Controllers\admin\RentalController;
+use App\Http\Controllers\admin\ReportController;
+use App\Http\Controllers\admin\VehicleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
+// employing renting side
+
+Route::group(['middleware' => 'auth'], function() {
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Inertia::render('Dashboard');
+})->name('dashboard');
+
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-
-// admin login
-
+// admin side
 
 Route::group(['prefix' => 'admin'], function() {
 
@@ -47,6 +37,11 @@ Route::group(['prefix' => 'admin'], function() {
     Route::group(['middleware' => 'admin.auth'], function() {
         Route::get('/dashboard', [AdminDashboard::class, 'index'] )->name('admin.dashboard');
         Route::post('/logout', [AdminDashboard::class, 'logout'])->name('admin.logout');
+        Route::get('/vehicle', [VehicleController::class, 'index'] )->name('admin.vehicle');
+        Route::get('/employee', [EmployeeController::class, 'index'] )->name('admin.employee');
+        Route::get('/rental', [RentalController::class, 'index'] )->name('admin.rental');
+        Route::get('/customer', [CustomerController::class, 'index'] )->name('admin.customer');
+        Route::get('/report', [ReportController::class, 'index'] )->name('admin.report');
 
     });
 
