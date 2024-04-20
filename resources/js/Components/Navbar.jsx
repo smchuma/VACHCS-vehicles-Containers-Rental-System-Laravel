@@ -1,8 +1,17 @@
+import { usePage } from "@inertiajs/react";
 import Dropdown from "./Dropdown";
 
 const Navbar = ({ user, header }) => {
+    const { url } = usePage();
+    const category =
+        url.split("/").pop().charAt(0).toUpperCase() +
+        url.split("/").pop().slice(1);
+
     return (
-        <nav className="flex p-3 justify-end ">
+        <nav className="flex p-3 justify-between shadow-sm ">
+            <h1 className="text-xl">
+                {category === "Vehicles" ? "Vehicle and Containers" : category}
+            </h1>
             <div className="sm:flex sm:items-center sm:ms-6">
                 <h1>notification</h1>
                 <div className="relative">

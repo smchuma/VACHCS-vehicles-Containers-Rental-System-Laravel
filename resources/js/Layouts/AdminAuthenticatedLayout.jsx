@@ -12,7 +12,7 @@ export default function AdminAuthenticated({ children }) {
                 <Sidebar data={adminSidebarData} />
                 <div className="lg:ml-72">
                     <Navbar user={auth.user} />
-                    <main>{children}</main>
+                    <main className="m-5">{children}</main>
                 </div>
             </div>
         </>

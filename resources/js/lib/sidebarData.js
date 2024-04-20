@@ -6,29 +6,34 @@ export const adminSidebarData = [
     },
     {
         id: 2,
+        name: "Category",
+        href: "/admin/category",
+    },
+    {
+        id: 3,
         name: "Vehicles & Containers",
-        href: "/admin/vehicle",
+        href: "/admin/vehicles",
     },
     {
         id: 4,
         name: "Rentals",
-        href: "/admin/rental",
+        href: "/admin/rentals",
     },
     {
-        id: 3,
+        id: 5,
         name: "Employees",
-        href: "/admin/employee",
+        href: "/admin/employees",
     },
 
     {
-        id: 5,
+        id: 6,
         name: "Customers",
-        href: "/admin/customer",
+        href: "/admin/customers",
     },
     {
-        id: 6,
+        id: 7,
         name: "Reports",
-        href: "/admin/report",
+        href: "/admin/reports",
     },
 ];
 

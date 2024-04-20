@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
+            $table->string('Vehicle_No')->unique();
+            $table->string('name');
+            $table->string('type')->nullable();
+            $table->integer('capacity')->nullable();
+            $table->integer('price_per_day')->nullable();
+            $table->json('images')->nullable();
+            $table->enum('status',['Available', 'Rented', 'Under Maintenance'])->nullable();
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

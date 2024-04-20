@@ -25,6 +25,7 @@
 
 body {
     overflow-y: scroll;
+    overflow-x: hidden;
     scrollbar-width: none;
     -ms-overflow-style: none;
     scrollbar-face-color: transparent;

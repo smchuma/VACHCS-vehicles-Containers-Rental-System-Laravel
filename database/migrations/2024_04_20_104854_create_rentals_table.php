@@ -14,6 +14,13 @@ return new class extends Migration
         Schema::create('rentals', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            $table->foreignId('vehicle_id')->constrained('vehicles')->onDelete('cascade');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->integer('total_price');
+            $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
+
         });
     }
 

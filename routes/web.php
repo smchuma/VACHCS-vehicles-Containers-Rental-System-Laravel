@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AdminDashboard;
 use App\Http\Controllers\admin\AdminLoginController;
+use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\EmployeeController;
 use App\Http\Controllers\admin\RentalController;
@@ -37,11 +38,12 @@ Route::group(['prefix' => 'admin'], function() {
     Route::group(['middleware' => 'admin.auth'], function() {
         Route::get('/dashboard', [AdminDashboard::class, 'index'] )->name('admin.dashboard');
         Route::post('/logout', [AdminDashboard::class, 'logout'])->name('admin.logout');
-        Route::get('/vehicle', [VehicleController::class, 'index'] )->name('admin.vehicle');
-        Route::get('/employee', [EmployeeController::class, 'index'] )->name('admin.employee');
-        Route::get('/rental', [RentalController::class, 'index'] )->name('admin.rental');
-        Route::get('/customer', [CustomerController::class, 'index'] )->name('admin.customer');
-        Route::get('/report', [ReportController::class, 'index'] )->name('admin.report');
+        Route::get('/vehicles', [VehicleController::class, 'index'] )->name('admin.vehicle');
+        Route::get('/category', [CategoryController::class, 'index'] )->name('admin.category');
+        Route::get('/employees', [EmployeeController::class, 'index'] )->name('admin.employee');
+        Route::get('/rentals', [RentalController::class, 'index'] )->name('admin.rental');
+        Route::get('/customers', [CustomerController::class, 'index'] )->name('admin.customer');
+        Route::get('/reports', [ReportController::class, 'index'] )->name('admin.report');
 
     });
 
