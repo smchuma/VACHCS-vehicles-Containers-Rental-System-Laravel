@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/dashboard', [AdminDashboard::class, 'index'] )->name('admin.dashboard');
 
         Route::get('/vehicles', [VehicleController::class, 'index'] )->name('vehicle');
+        Route::post('/vehicles', [VehicleController::class, 'store'] )->name('vehicle.store');
 
         //Category Routes
         Route::get('/category', [CategoryController::class, 'index'] )->name('category');
