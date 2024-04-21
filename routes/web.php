@@ -37,13 +37,23 @@ Route::group(['prefix' => 'admin'], function() {
 
     Route::group(['middleware' => 'admin.auth'], function() {
         Route::get('/dashboard', [AdminDashboard::class, 'index'] )->name('admin.dashboard');
+
+        Route::get('/vehicles', [VehicleController::class, 'index'] )->name('vehicle');
+
+        //Category Routes
+        Route::get('/category', [CategoryController::class, 'index'] )->name('category');
+        Route::post('/category', [CategoryController::class, 'store'] )->name('category.store');
+
+        Route::get('/employees', [EmployeeController::class, 'index'] )->name('employee');
+
+        Route::get('/rentals', [RentalController::class, 'index'] )->name('rental');
+
+        Route::get('/customers', [CustomerController::class, 'index'] )->name('customer');
+
+        Route::get('/reports', [ReportController::class, 'index'] )->name('report');
+
         Route::post('/logout', [AdminDashboard::class, 'logout'])->name('admin.logout');
-        Route::get('/vehicles', [VehicleController::class, 'index'] )->name('admin.vehicle');
-        Route::get('/category', [CategoryController::class, 'index'] )->name('admin.category');
-        Route::get('/employees', [EmployeeController::class, 'index'] )->name('admin.employee');
-        Route::get('/rentals', [RentalController::class, 'index'] )->name('admin.rental');
-        Route::get('/customers', [CustomerController::class, 'index'] )->name('admin.customer');
-        Route::get('/reports', [ReportController::class, 'index'] )->name('admin.report');
+
 
     });
 

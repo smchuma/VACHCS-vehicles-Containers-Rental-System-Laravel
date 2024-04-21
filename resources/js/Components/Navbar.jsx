@@ -1,5 +1,6 @@
 import { usePage } from "@inertiajs/react";
 import Dropdown from "./Dropdown";
+import { IoIosNotificationsOutline } from "react-icons/io";
 
 const Navbar = ({ user, header }) => {
     const { url } = usePage();
@@ -8,19 +9,19 @@ const Navbar = ({ user, header }) => {
         url.split("/").pop().slice(1);
 
     return (
-        <nav className="flex p-3 justify-between shadow-sm ">
+        <nav className="flex py-3 justify-between shadow-sm sticky  z-50 bg-white top-0  lg:mx-8 ">
             <h1 className="text-xl">
                 {category === "Vehicles" ? "Vehicle and Containers" : category}
             </h1>
-            <div className="sm:flex sm:items-center sm:ms-6">
-                <h1>notification</h1>
-                <div className="relative">
+            <div className="sm:flex sm:items-center sm:ms-6 gap-4">
+                <IoIosNotificationsOutline className="text-xl" />
+                <div className="relative ">
                     <Dropdown>
                         <Dropdown.Trigger>
                             <span className="inline-flex rounded-md">
                                 <button
                                     type="button"
-                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4   focus:outline-none transition ease-in-out duration-150"
+                                    className=" rounded-full inline-flex items-center px-3 py-2 border border-gray-200 text-sm leading-4   focus:outline-none transition ease-in-out duration-150"
                                 >
                                     {user.name}
 

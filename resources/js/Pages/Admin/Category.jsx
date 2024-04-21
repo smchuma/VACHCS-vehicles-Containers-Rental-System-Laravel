@@ -2,7 +2,7 @@ import CategoryBody from "@/Components/Category/CategoryBody";
 import CategoryHeader from "@/Components/Category/CategoryHeader";
 import AdminAuthenticatedLayout from "@/Layouts/AdminAuthenticatedLayout";
 
-const AdminDashboard = () => {
+const Category = () => {
     return (
         <AdminAuthenticatedLayout>
             <main className="container">
@@ -13,4 +13,4 @@ const AdminDashboard = () => {
     );
 };
 
-export default AdminDashboard;
+export default Category;
