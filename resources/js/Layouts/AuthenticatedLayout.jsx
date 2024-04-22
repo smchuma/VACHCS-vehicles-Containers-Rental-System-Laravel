@@ -12,7 +12,6 @@ export default function Authenticated({ user, header, children }) {
     return (
         <>
             <div className="min-h-screen bg-gray-50/50">
-                <Sidebar />
                 <div className="lg:ml-72">
                     <Navbar user={user} header={header} />
                     <h1>dd</h1>

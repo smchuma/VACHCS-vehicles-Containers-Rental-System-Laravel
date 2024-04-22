@@ -4,9 +4,12 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 
 const Navbar = ({ user, header }) => {
     const { url } = usePage();
+    const { auth } = usePage().props;
     const category =
         url.split("/").pop().charAt(0).toUpperCase() +
         url.split("/").pop().slice(1);
+
+    console.log(auth.user.role);
 
     return (
         <nav className="flex py-3 justify-between shadow-sm sticky  z-50 bg-white top-0  lg:mx-8 ">
@@ -46,7 +49,11 @@ const Navbar = ({ user, header }) => {
                                 Profile
                             </Dropdown.Link>
                             <Dropdown.Link
-                                href={route("admin.logout")}
+                                href={
+                                    auth.user.role === 1
+                                        ? route("admin.logout")
+                                        : route("logout")
+                                }
                                 method="post"
                                 as="button"
                             >
