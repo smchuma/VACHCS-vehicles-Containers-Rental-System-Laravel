@@ -41,15 +41,9 @@ const VTableHeader = () => {
                     scope="col"
                     className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-white"
                 >
-                    Capacity
+                    Status
                 </th>
 
-                <th
-                    scope="col"
-                    className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-white"
-                >
-                    Image
-                </th>
                 <th
                     scope="col"
                     className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-white"
@@ -60,12 +54,12 @@ const VTableHeader = () => {
                     scope="col"
                     className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-white"
                 >
-                    Status
+                    Image
                 </th>
 
-                <th scope="col" className="relative py-3.5 px-4">
+                {/* <th scope="col" className="relative py-3.5 px-4">
                     <span className="sr-only">Edit</span>
-                </th>
+                </th> */}
             </tr>
         </thead>
     );

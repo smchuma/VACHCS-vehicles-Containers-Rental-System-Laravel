@@ -15,27 +15,58 @@ const VTableBody = ({ data, links }) => {
                                         <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                             <div>
                                                 <h2 className="font-medium text-gray-800 ">
-                                                    {item.id}
+                                                    {item.Vehicle_No}
                                                 </h2>
                                             </div>
                                         </td>
-                                        <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                            <div className="inline px-3 py-1 text-sm font-normal rounded-full text-gray-500 gap-x-2">
-                                                {item.name}
+                                        <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                            <div>
+                                                <h2 className="font-medium text-gray-800 ">
+                                                    {item.name}
+                                                </h2>
                                             </div>
                                         </td>
-                                        <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                            <div className="inline px-3 py-1 text-sm font-normal rounded-full text-gray-500 gap-x-2">
-                                                {item.slug}
+                                        <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                            <div>
+                                                <h2 className="font-medium text-gray-800 ">
+                                                    {item.type}
+                                                </h2>
                                             </div>
                                         </td>
-                                        <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                            {item.image == null
-                                                ? "N/A"
-                                                : item.image}
+                                        <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                            <div>
+                                                <h2 className="font-medium text-gray-800 ">
+                                                    {item.capacity}
+                                                </h2>
+                                            </div>
                                         </td>
-                                        <td>
-                                            {/* <CategoryEdit item={data} /> */}
+                                        <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                            <div>
+                                                <h2 className="font-medium text-gray-800 ">
+                                                    {item.price_per_day}
+                                                </h2>
+                                            </div>
+                                        </td>
+                                        <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                            <div>
+                                                <h2 className="font-medium text-gray-800 ">
+                                                    {item.status}
+                                                </h2>
+                                            </div>
+                                        </td>
+                                        <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                            <div>
+                                                <h2 className="font-medium text-gray-800 ">
+                                                    {item.category_id}
+                                                </h2>
+                                            </div>
+                                        </td>
+                                        <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                            <div>
+                                                <h2 className="font-medium text-gray-800 ">
+                                                    {item.images}
+                                                </h2>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
