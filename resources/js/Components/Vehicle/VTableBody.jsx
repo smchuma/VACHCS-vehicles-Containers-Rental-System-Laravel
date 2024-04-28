@@ -35,7 +35,7 @@ const VTableBody = ({ data, links }) => {
                                                 : item.image}
                                         </td>
                                         <td>
-                                            <CategoryEdit item={data} />
+                                            {/* <CategoryEdit item={data} /> */}
                                         </td>
                                     </tr>
                                 ))}

@@ -22,14 +22,7 @@ const TableHeader = () => {
                     scope="col"
                     className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-white"
                 >
-                    Slug
-                </th>
-
-                <th
-                    scope="col"
-                    className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-white"
-                >
-                    image
+                    No. of Vehicles
                 </th>
 
                 <th scope="col" className="relative py-3.5 px-4">

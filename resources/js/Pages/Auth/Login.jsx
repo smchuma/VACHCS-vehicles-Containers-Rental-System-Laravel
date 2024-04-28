@@ -30,8 +30,8 @@ export default function Login({ status, canResetPassword }) {
         <GuestLayout>
             <Head title="Log in" />
 
-            <h1 className="text-center my-5 font-semibold text-2xl text-[#0a0e11] ">
-                Login
+            <h1 className="text-center my-5 font-semibold text-xl text-[#0a0e11] ">
+                Employee Panel
             </h1>
 
             {status && (

@@ -4,7 +4,7 @@ import SidebarItem from "./SidebarItem";
 
 const Sidebar = ({ data }) => {
     return (
-        <main className="bg-[#0a0e11] shadow-2xl -translate-x-80 fixed inset-0 z-50  m-h-full w-72 transition-transform duration-300 lg:translate-x-0">
+        <main className="bg-slate-900 shadow-2xl -translate-x-80 fixed inset-0 z-50  m-h-full w-72 transition-transform duration-300 lg:translate-x-0">
             <div className="relative border-b border-white/20">
                 <div className="flex flex-col items-center gap-2 py-6 px-8 mt-4 ">
                     <div className="flex text-white gap-2 items-center">

@@ -38,7 +38,9 @@ export default function AdminLogin({ status, canResetPassword }) {
                     {status}
                 </div>
             )}
-            <h1 className="text-center mb-4 font-semibold ">Admin Panel</h1>
+            <h1 className="text-center my-5 font-semibold text-xl text-[#0a0e11] ">
+                Admin Panel
+            </h1>
 
             {loginErrors && (
                 <p className="text-red-500 mb-2 text-md font-bold text-center ">

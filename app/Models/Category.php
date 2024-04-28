@@ -11,12 +11,9 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'slug',
-        'description',
-        'image'
     ];
 
-    public function vehicle() {
-        return $this->hasMany(Vehicle::class);
+    public function vehicles() {
+        return $this->hasMany(Vehicle::class,'category_id');
     }
 }

@@ -23,8 +23,18 @@ class Vehicle extends Model
     ];
 
     protected $casts = [
-        'images' => 'array'
+        'images' => 'array',
+        'status' => 'string',
     ];
+
+    public static function getStatuses(): array
+    {
+        return [
+           'Available',
+            'Rented',
+            'Under Maintenance',
+        ];
+    }
 
     public function category() {
         return $this->belongsTo(Category::class);

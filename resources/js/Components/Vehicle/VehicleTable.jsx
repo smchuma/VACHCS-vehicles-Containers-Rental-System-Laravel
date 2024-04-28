@@ -1,12 +1,17 @@
 import { CiSearch } from "react-icons/ci";
 import { useState } from "react";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import toast, { Toaster } from "react-hot-toast";
 import VTableBody from "./VTableBody";
 
 const VehicleTable = ({ vehicle }) => {
     const { data, links } = vehicle;
     const [searchTerm, setSearchTerm] = useState("");
+    const { session } = usePage().props;
+
+    if (session.success) {
+        toast.success(session.success);
+    }
 
     const handleSearch = (value) => {
         try {

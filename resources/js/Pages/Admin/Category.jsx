@@ -5,7 +5,7 @@ import AdminAuthenticatedLayout from "@/Layouts/AdminAuthenticatedLayout";
 const Category = () => {
     return (
         <AdminAuthenticatedLayout>
-            <main className="container">
+            <main className="container ">
                 <CategoryHeader />
                 <CategoryBody />
             </main>

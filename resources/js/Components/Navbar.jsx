@@ -9,10 +9,8 @@ const Navbar = ({ user, header }) => {
         url.split("/").pop().charAt(0).toUpperCase() +
         url.split("/").pop().slice(1);
 
-    console.log(auth.user.role);
-
     return (
-        <nav className="flex py-3 justify-between shadow-sm sticky  z-50 bg-white top-0  lg:mx-8 ">
+        <nav className="flex py-4 justify-between sticky shadow-md  z-50 bg-slate-100 top-0  lg:px-8 ">
             <h1 className="text-xl">
                 {category === "Vehicles" ? "Vehicle and Containers" : category}
             </h1>

@@ -15,9 +15,6 @@ const CategoryHeader = () => {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
-        slug: "",
-        description: "",
-        image: "",
     });
 
     const openModal = () => {
@@ -32,7 +29,7 @@ const CategoryHeader = () => {
         e.preventDefault();
 
         try {
-            post(route("category.store", { preserveScroll: true }), {
+            post("/admin/category", {
                 onSuccess: () => {
                     reset();
                     closeModal();
@@ -115,49 +112,6 @@ const CategoryHeader = () => {
 
                                 <InputError
                                     message={errors.name}
-                                    className="mt-2"
-                                />
-                            </div>
-
-                            <div className="mt-4">
-                                <InputLabel htmlFor="slug" value="Slug" />
-
-                                <TextInput
-                                    id="slug"
-                                    type="text"
-                                    name="slug"
-                                    placeholder="Enter Slug"
-                                    value={data.slug}
-                                    className="mt-1 block w-full"
-                                    autoComplete="current-password"
-                                    onChange={(e) =>
-                                        setData("slug", e.target.value)
-                                    }
-                                />
-
-                                <InputError
-                                    message={errors.slug}
-                                    className="mt-2"
-                                />
-                            </div>
-
-                            <div className="mt-4">
-                                <InputLabel htmlFor="image" value="Image" />
-
-                                <TextInput
-                                    id="image"
-                                    type="file"
-                                    name="image"
-                                    accept="image/*"
-                                    value={data.image}
-                                    className="mt-1 block w-full appearance-none bg-white border border-gray-300 rounded-md py-2 px-3 text-base leading-normal focus:outline-none focus:ring focus:border-blue-500"
-                                    onChange={(e) =>
-                                        setData("image", e.target.value)
-                                    }
-                                />
-
-                                <InputError
-                                    message={errors.image}
                                     className="mt-2"
                                 />
                             </div>

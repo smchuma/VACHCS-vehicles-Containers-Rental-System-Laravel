@@ -3,7 +3,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
 export default function Guest({ children }) {
     return (
         <div className="min-h-screen relative flex items-center flex-col pt-6 sm:pt-0">
-            <div className="w-full bg-[#0a0e11] h-64 "></div>
+            <div className="w-full bg-slate-900 h-64 "></div>
 
             <div className=" absolute w-full flex items-center flex-col  overflow-hidden mt-28 ">
                 <div className="flex items-center gap-2">

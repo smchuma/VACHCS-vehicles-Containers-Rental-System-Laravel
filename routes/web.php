@@ -36,14 +36,12 @@ Route::group(['prefix' => 'admin'], function() {
     });
 
     Route::group(['middleware' => 'admin.auth'], function() {
-        Route::get('/dashboard', [AdminDashboard::class, 'index'] )->name('admin.dashboard');
+    Route::get('/dashboard', [AdminDashboard::class, 'index'] )->name('admin.dashboard');
 
-        Route::get('/vehicles', [VehicleController::class, 'index'] )->name('vehicle');
-        Route::post('/vehicles', [VehicleController::class, 'store'] )->name('vehicle.store');
+    Route::resource('/vehicle', VehicleController::class);
 
         //Category Routes
-        Route::get('/category', [CategoryController::class, 'index'] )->name('category');
-        Route::post('/category', [CategoryController::class, 'store'] )->name('category.store');
+        Route::resource('/category', CategoryController::class);
 
         Route::get('/employees', [EmployeeController::class, 'index'] )->name('employee');
 

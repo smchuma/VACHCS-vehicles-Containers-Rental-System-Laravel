@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -19,10 +20,23 @@ class VehicleController extends Controller
         }
 
         // $category = Category::latest()->paginate(10);
-        return Inertia::render("Admin/Vehicle", [
+        return Inertia::render("Admin/vehicle/list", [
             "vehicle"=> $query->orderByDesc('created_at')->paginate(10),
         ]);
     }
+
+
+    public function create() {
+        $categories = Category::all();
+        $statuses = Vehicle::getStatuses();
+
+        return Inertia::render('Admin/vehicle/create', [
+            'categories' => $categories,
+            'statuses' => $statuses,
+        ]);
+    }
+
+
 
 
     public function store(Request $request) {
@@ -33,7 +47,8 @@ class VehicleController extends Controller
             'type' => 'required|string|max:255',
             'capacity' => 'required|integer',
             'price_per_day' => 'required|integer',
-            'status' => 'required|enum',
+            'status' => 'required',
+            'category_id' => 'required|exists:categories,id'
         ]);
 
         Vehicle::create([
@@ -45,7 +60,7 @@ class VehicleController extends Controller
             'status'=> $request->status,
             'category_id'=> $request->category_id,
             ]);
-            return redirect()->route('category')->with('success','Category added successfully');
+            return redirect()->route("vehicle.index")->with('success','Category added successfully');
 
     }
 }
