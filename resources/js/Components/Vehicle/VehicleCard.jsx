@@ -1,7 +1,7 @@
 // VehicleCard.js
 import { BsPeopleFill } from "react-icons/bs";
 
-const VehicleCard = ({ imageUrl, name, status, capacity, pricePerDay }) => {
+const VehicleCard = ({ image, name, status, capacity, pricePerDay }) => {
     const getStatusColor = () => {
         switch (status.toLowerCase()) {
             case "available":
@@ -16,14 +16,14 @@ const VehicleCard = ({ imageUrl, name, status, capacity, pricePerDay }) => {
     };
 
     return (
-        <div className="max-w-xs bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className=" bg-white shadow-lg rounded-xl overflow-hidden h-80 ">
             <img
-                src={`${imageUrl ? imageUrl : "images/default.png"}`}
+                src={image ? `/storage/${image}` : "images/default.png"}
                 alt={name}
-                className="w-full h-48 object-cover object-center"
+                className="w-full h- p-10 object-cover object-center"
             />
             <div className="px-4 py-2">
-                <h2 className="text-gray-800 font-semibold text-xl">{name}</h2>
+                <h2 className="text-gray-800 font-semibold text-sm">{name}</h2>
             </div>
             <div className="flex justify-between p-2 items-center border">
                 <div

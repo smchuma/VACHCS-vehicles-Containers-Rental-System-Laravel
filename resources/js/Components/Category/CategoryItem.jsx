@@ -2,7 +2,7 @@ import { BiCategory } from "react-icons/bi";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import Dropdown from "../Dropdown";
-import { router, usePage } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 
 const CategoryItem = ({ category }) => {
     const handleDelete = (id) => {

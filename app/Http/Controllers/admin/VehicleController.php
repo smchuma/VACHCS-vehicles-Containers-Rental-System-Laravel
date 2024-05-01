@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class VehicleController extends Controller
@@ -49,8 +50,13 @@ class VehicleController extends Controller
             'price_per_day' => 'required|integer',
             'status' => 'required',
             'category_id' => 'required|exists:categories,id',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,max:2048',
+            'image' => ['image']
         ]);
+
+        if($request->has('image')){
+            $image = Storage::disk('public')->put('vehicles', $request->file('image'));
+
+        }
 
         Vehicle::create([
             'Vehicle_No' => $request->Vehicle_No,
@@ -60,7 +66,7 @@ class VehicleController extends Controller
             'price_per_day' => $request->price_per_day,
             'status' => $request->status,
             'category_id' => $request->category_id,
-            'image' => $request->file('image')->store('vehicles', 'public'),
+            'image' => $image
         ]);
 
         return redirect()->route("vehicle.index")->with('success', 'Vehicle created successfully!');

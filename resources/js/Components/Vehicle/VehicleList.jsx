@@ -2,44 +2,18 @@ import React from "react";
 import VehicleCard from "./VehicleCard";
 import { Link } from "@inertiajs/react";
 
-const VehicleList = ({ v }) => {
-    const vehicles = [
-        {
-            id: 1,
-            name: "Toyota Corolla",
-            imageUrl: "https://via.placeholder.com/300x200",
-            status: "Available",
-            capacity: "5 seats",
-            pricePerDay: 50,
-        },
-        {
-            id: 2,
-            name: "Honda Civic",
-            imageUrl: "https://via.placeholder.com/300x200",
-            status: "Rented",
-            capacity: "4 seats",
-            pricePerDay: 60,
-        },
-        {
-            id: 3,
-            name: "Ford Mustang",
-            imageUrl: "https://via.placeholder.com/300x200",
-            status: "Unavailable",
-            capacity: "2 seats",
-            pricePerDay: 70,
-        },
-    ];
+const VehicleList = ({ vehicles }) => {
     return (
-        <div className="flex flex-wrap justify-center gap-4 mt-10 cursor-pointer ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 px-12 ">
             {vehicles.map((vehicle) => (
                 <Link href="">
                     <VehicleCard
                         key={vehicle.id}
-                        imageUrl={vehicle.imageUrl}
+                        image={vehicle.image}
                         name={vehicle.name}
                         status={vehicle.status}
                         capacity={vehicle.capacity}
-                        pricePerDay={vehicle.pricePerDay}
+                        pricePerDay={vehicle.price_per_day}
                     />
                 </Link>
             ))}

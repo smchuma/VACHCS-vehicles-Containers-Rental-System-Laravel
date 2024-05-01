@@ -16,7 +16,7 @@ class Vehicle extends Model
         'capacity',
         'price_per_day',
         'status',
-        'images',
+        'image',
         'category_id'
     ];
 

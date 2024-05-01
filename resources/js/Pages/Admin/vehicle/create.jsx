@@ -24,6 +24,7 @@ const create = ({ categories, statuses }) => {
     });
 
     const submit = (e) => {
+        console.log(data);
         e.preventDefault();
 
         try {

@@ -1,8 +1,8 @@
 import { CiSearch } from "react-icons/ci";
 import { useState } from "react";
 import { router, usePage } from "@inertiajs/react";
-import toast, { Toaster } from "react-hot-toast";
 import CategoryCard from "./CategoryCard";
+import { BiCategory } from "react-icons/bi";
 
 const CategoryBody = () => {
     const { category } = usePage().props;
@@ -29,25 +29,6 @@ const CategoryBody = () => {
         <div>
             <div className="mt-6 md:flex md:items-center md:justify-end"></div>
             <>
-                <Toaster
-                    position="top-right"
-                    reverseOrder={false}
-                    toastOptions={{
-                        className: "",
-                        duration: 5000,
-                        style: {
-                            background: "#2fbe51",
-                            color: "#fff",
-                        },
-                        success: {
-                            duration: 5000,
-                            theme: {
-                                primary: "green",
-                                secondary: "black",
-                            },
-                        },
-                    }}
-                />
                 <div className="relative flex items-center justify-end mt-4 md:mt-0">
                     <span className="absolute">
                         <CiSearch className="w-5 h-5 mx-3 text-gray-400" />
@@ -63,6 +44,16 @@ const CategoryBody = () => {
                 </div>
 
                 <div className="mt-10">
+                    {data.length === 0 && (
+                        <div className="flex justify-center flex-col items-center text-gray-400 text-center my-20 ">
+                            <BiCategory size={50} />
+
+                            <p className="text-xl font-bold mt-3  ">
+                                No Categories Available, <br /> Click Add
+                                Category Button Above.
+                            </p>
+                        </div>
+                    )}
                     <CategoryCard categories={data} />
                 </div>
             </>
