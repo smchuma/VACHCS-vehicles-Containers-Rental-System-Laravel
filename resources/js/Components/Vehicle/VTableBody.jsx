@@ -2,6 +2,7 @@ import NavLink from "../NavLink";
 import VTableHeader from "./VTableHeader";
 
 const VTableBody = ({ data, links }) => {
+    console.log(data);
     return (
         <div className="flex flex-col mt-6  ">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

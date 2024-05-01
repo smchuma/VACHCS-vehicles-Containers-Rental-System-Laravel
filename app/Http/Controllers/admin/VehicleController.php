@@ -39,28 +39,30 @@ class VehicleController extends Controller
 
 
 
-    public function store(Request $request) {
-
-        $request->validate([
+    public function store(Request $request)
+    {
+       $request->validate([
             'Vehicle_No' => 'required|string|max:255|unique:'.Vehicle::class,
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255',
             'capacity' => 'required|integer',
             'price_per_day' => 'required|integer',
             'status' => 'required',
-            'category_id' => 'required|exists:categories,id'
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,max:2048',
         ]);
 
         Vehicle::create([
-            'Vehicle_No'=> $request->Vehicle_No,
-            'name'=> $request->name,
-            'type'=> $request->type,
-            'capacity'=> $request->capacity,
-            'price_per_day'=> $request->price_per_day,
-            'status'=> $request->status,
-            'category_id'=> $request->category_id,
-            ]);
-            return redirect()->route("vehicle.index")->with('success','Category added successfully');
+            'Vehicle_No' => $request->Vehicle_No,
+            'name' => $request->name,
+            'type' => $request->type,
+            'capacity' => $request->capacity,
+            'price_per_day' => $request->price_per_day,
+            'status' => $request->status,
+            'category_id' => $request->category_id,
+            'image' => $request->file('image')->store('vehicles', 'public'),
+        ]);
 
+        return redirect()->route("vehicle.index")->with('success', 'Vehicle created successfully!');
     }
 }

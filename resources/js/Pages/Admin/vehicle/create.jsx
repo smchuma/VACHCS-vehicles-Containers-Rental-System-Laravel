@@ -7,11 +7,12 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
+import { Line } from "rc-progress";
 
 const create = ({ categories, statuses }) => {
     const { session } = usePage().props;
 
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, errors, reset } = useForm({
         Vehicle_No: "",
         name: "",
         type: "",
@@ -19,6 +20,7 @@ const create = ({ categories, statuses }) => {
         price_per_day: "",
         status: "",
         category_id: "",
+        image: "",
     });
 
     const submit = (e) => {
@@ -148,6 +150,29 @@ const create = ({ categories, statuses }) => {
 
                             <InputError
                                 message={errors.capacity}
+                                className="mt-2"
+                            />
+                        </div>
+                        <div className="my-3 mb-5">
+                            <InputLabel
+                                htmlFor="image"
+                                value="Vehicle Image"
+                                className="mb-2 font-semibold"
+                            />
+
+                            <TextInput
+                                id="image"
+                                type="file"
+                                name="image"
+                                accept="image/*"
+                                className="mt-1 block w-full placeholder:text-gray-400 placeholder:text-xs"
+                                onChange={(e) =>
+                                    setData("image", e.target.files[0])
+                                }
+                            />
+
+                            <InputError
+                                message={errors.image}
                                 className="mt-2"
                             />
                         </div>

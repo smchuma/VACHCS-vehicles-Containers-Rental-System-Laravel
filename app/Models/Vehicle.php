@@ -18,14 +18,8 @@ class Vehicle extends Model
         'status',
         'images',
         'category_id'
-
-
     ];
 
-    protected $casts = [
-        'images' => 'array',
-        'status' => 'string',
-    ];
 
     public static function getStatuses(): array
     {

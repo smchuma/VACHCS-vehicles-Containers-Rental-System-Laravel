@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\EmployeeController;
 use App\Http\Controllers\admin\RentalController;
 use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\VehicleController;
+use App\Http\Controllers\Employee\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -17,9 +18,8 @@ use Inertia\Inertia;
 // employing renting side
 
 Route::group(['middleware' => 'auth'], function() {
-Route::get('/', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+
+Route::get('/', [HomeController::class,'index'])->name('index');
 
 });
 
