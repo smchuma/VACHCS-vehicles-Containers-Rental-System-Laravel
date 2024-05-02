@@ -22,7 +22,7 @@ export default function Home({ auth, vehicles }) {
             <div className="emp-sidebar">
                 <EmpSidebar />
             </div>
-            <div className="ml-0 md:ml-72 ">
+            <div className="ml-0 md:ml-72 mt-10 ">
                 <div className="">
                     <div className="flex justify-end mr-0 md:mr-12 ">
                         <TextInput

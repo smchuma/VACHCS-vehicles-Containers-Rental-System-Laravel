@@ -5,8 +5,8 @@ import ApplicationLogo from "./ApplicationLogo";
 
 const EmpNavbar = ({ user }) => {
     return (
-        <nav className="flex py-5 justify-between sticky shadow-md  z-50 bg-white top-0  pr-[5.5rem] ">
-            <div className="flex gap-2 items-center pl-[2.2rem]">
+        <nav className="flex py-5 justify-between sticky shadow-md  z-50 bg-white top-0  pr-11 ">
+            <div className="flex gap-2 items-center pl-5">
                 <img src="/images/truck3.png" className="h-5" alt="logo" />
                 <ApplicationLogo className="logo" />
             </div>

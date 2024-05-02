@@ -9,7 +9,7 @@ export default function AdminAuthenticated({ children }) {
 
     return (
         <ToastProvider>
-            <div className="min-h-screen bg-slate-100 ">
+            <div className="min-h-screen bg-gray-100 ">
                 <Sidebar data={adminSidebarData} />
                 <div className="lg:ml-72 w-[calc(100% - 18rem)] ">
                     <Navbar user={auth.user} />
