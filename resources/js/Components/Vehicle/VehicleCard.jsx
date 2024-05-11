@@ -24,7 +24,7 @@ const VehicleCard = ({ image, name, status, capacity, pricePerDay }) => {
     };
 
     return (
-        <Card className="mt-6 max-w-s ">
+        <Card className="mt-6 max-w-s border-2 border-gray-200 ">
             <CardHeader className="relative h-56 !shadow-[0px] border-b-2 border-gray-200 bg-gray-100 !m-0 ">
                 <img
                     src={image ? `/storage/${image}` : "images/default.png"}

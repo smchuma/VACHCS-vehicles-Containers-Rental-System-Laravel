@@ -5,9 +5,9 @@ import VehicleList from "@/Components/Vehicle/VehicleList";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Home({ auth, vehicles }) {
+export default function Home({ auth, vehicles, categories }) {
     const { data } = vehicles;
-    console.log(data);
+    console.log(categories);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -20,9 +20,9 @@ export default function Home({ auth, vehicles }) {
             <Head title="Dashboard" />
 
             <div className="emp-sidebar">
-                <EmpSidebar />
+                <EmpSidebar categories={categories} />
             </div>
-            <div className="ml-0 md:ml-72 mt-10 ">
+            <div className="ml-0 md:ml-60 mt-10 ">
                 <div className="">
                     <div className="flex justify-end mr-0 md:mr-12 ">
                         <TextInput

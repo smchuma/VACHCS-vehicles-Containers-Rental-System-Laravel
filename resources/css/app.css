@@ -53,3 +53,13 @@ body {
         display: flex;
     }
 }
+
+.dropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.dropdown.show {
+    max-height: 200px; /* Adjust height as needed */
+}
