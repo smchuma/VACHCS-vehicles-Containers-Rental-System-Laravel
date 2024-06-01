@@ -71,4 +71,49 @@ class VehicleController extends Controller
 
         return redirect()->route("vehicle.index")->with('success', 'Vehicle created successfully!');
     }
+
+    //update
+    public function update(Request $request, $id)
+    {
+        $vehicle = Vehicle::findOrFail($id);
+        dd($request->all());
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'capacity' => 'required|integer',
+            'price_per_day' => 'required|integer',
+            'status' => 'required',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+
+        ]);
+
+        $vehicle->name = $request->input('name');
+        $vehicle->type = $request->input('type');
+        $vehicle->capacity = $request->input('capacity');
+        $vehicle->status = $request->input('status');
+        $vehicle->price_per_day = $request->input('price_per_day');
+        if ($request->hasFile('image')) {
+            if ($vehicle->image) {
+                Storage::delete('public/' . $vehicle->image);
+            }
+
+            $path = $request->file('image')->store('images', 'public');
+            $vehicle->image = $path;
+        }
+
+        $vehicle->save();
+        return redirect()->back()->with('success', 'Vehicle updated successfully.');
+
+    }
+
+
+    public function destroy($id)
+    {
+        $vehicle = Vehicle::findOrFail($id);
+        if ($vehicle->image) {
+            Storage::disk('public')->delete($vehicle->image);
+        }
+        $vehicle->delete();
+        return redirect()->back()->with('success', 'Vehicle deleted successfully.');
+    }
 }

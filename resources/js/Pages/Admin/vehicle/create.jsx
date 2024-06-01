@@ -7,7 +7,6 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
-import { Line } from "rc-progress";
 
 const create = ({ categories, statuses }) => {
     const { session } = usePage().props;
@@ -24,7 +23,6 @@ const create = ({ categories, statuses }) => {
     });
 
     const submit = (e) => {
-        console.log(data);
         e.preventDefault();
 
         try {
@@ -190,9 +188,9 @@ const create = ({ categories, statuses }) => {
                             />
 
                             <TextInput
-                                id="capacity"
+                                id="price_per_day"
                                 type="text"
-                                name="capacity"
+                                name="price_per_day"
                                 value={data.price_per_day}
                                 className="mt-1 block w-full placeholder:text-gray-400 placeholder:text-xs mb-5 "
                                 placeholder="Enter the Vehicle Capacity"
