@@ -15,7 +15,7 @@ const VehicleCard = ({ image, name, status, capacity, pricePerDay }) => {
             case "available":
                 return "bg-green-500";
             case "rented":
-                return "bg-yellow-500";
+                return "bg-gray-900";
             case "unavailable":
                 return "bg-red-500";
             default:

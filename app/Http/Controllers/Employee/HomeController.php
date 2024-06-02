@@ -37,8 +37,10 @@ class HomeController extends Controller
 
     public function storeRental(Request $request)
     {
+
         $request->validate([
-            'customer_id' => 'required|string|max:255',
+            'rental_order_number' => 'required|string|max:255',
+            'customer_id_number' => 'required|string|max:255',
             'customer_name' => 'required|string|max:255',
             'customer_email' => 'required|string|email|max:255',
             'customer_phone' => 'required|string|max:15',
@@ -48,12 +50,16 @@ class HomeController extends Controller
             'vehicle_id' => 'required|exists:vehicles,id'
         ]);
 
-        dd($request->all());
+        $vehicle = Vehicle::findOrFail($request->vehicle_id);
 
+
+        if ($vehicle->status === 'Rented') {
+            return redirect()->back()->withErrors(['vehicle_id' => 'This vehicle is already rented.']);
+        }
 
         // Create the customer
         $customer = Customer::create([
-            'id_number' => $request->customer_id,
+            'id_number' => $request->customer_id_number,
             'name' => $request->customer_name,
             'phone_number' => $request->customer_phone,
             'email' => $request->customer_email,
@@ -61,18 +67,20 @@ class HomeController extends Controller
             'city' => $request->customer_city,
         ]);
 
-        // Generate a unique rental order number
-        $rentalOrderNumber = 'RO24-' . Str::random(8);
 
         // Create the rental
-        $rental = Rental::create([
-            'rental_order_number' => $rentalOrderNumber,
+         Rental::create([
+            'rental_order_number' => $request->rental_order_number,
             'customer_id' => $customer->id,
             'vehicle_id' => $request->vehicle_id,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'total_price' => $request->total_price,
         ]);
+
+        $vehicle = Vehicle::findOrFail($request->vehicle_id);
+        $vehicle->status = 'Rented';
+        $vehicle->save();
 
         return redirect()->route('index')->with('success', 'Rental created successfully.');
     }

@@ -10,6 +10,7 @@ class Rental extends Model
     use HasFactory;
 
     protected $fillable = [
+        'rental_order_number',
         'customer_id',
         'vehicle_id',
         'start_date',

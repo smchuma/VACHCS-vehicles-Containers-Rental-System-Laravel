@@ -6,12 +6,19 @@ const VehicleShow = () => {
     const { props } = usePage();
     const { vehicle } = props;
 
+    const generateRentalOrderNumber = () => {
+        const randomNumber = Math.floor(Math.random() * 900000) + 100000;
+        return `REN-${randomNumber}`;
+    };
+
     const { data, setData, post, processing, errors } = useForm({
+        rental_order_number: generateRentalOrderNumber(),
         customer_name: "",
         customer_email: "",
         customer_phone: "",
         customer_address: "",
         customer_city: "",
+        customer_id_number: "",
         start_date: "",
         end_date: "",
         total_price: 0,
@@ -172,6 +179,27 @@ const VehicleShow = () => {
                             {errors.customer_city && (
                                 <div className="text-red-500">
                                     {errors.customer_city}
+                                </div>
+                            )}
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700">
+                                Customer ID Number
+                            </label>
+                            <input
+                                type="text"
+                                value={data.customer_id_number}
+                                onChange={(e) =>
+                                    setData(
+                                        "customer_id_number",
+                                        e.target.value
+                                    )
+                                }
+                                className="w-full border rounded p-2"
+                            />
+                            {errors.customer_id_number && (
+                                <div className="text-red-500">
+                                    {errors.customer_id_number}
                                 </div>
                             )}
                         </div>
