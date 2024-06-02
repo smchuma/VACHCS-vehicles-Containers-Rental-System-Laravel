@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\RentalController;
 use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\VehicleController;
 use App\Http\Controllers\Employee\HomeController;
+use App\Http\Controllers\Employee\VehicleRentalController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,11 @@ use Inertia\Inertia;
 Route::group(['middleware' => 'auth'], function() {
 
 Route::get('/', [HomeController::class,'index'])->name('index');
+Route::get('/vehicles/{id}', [HomeController::class, 'show'])->name('vehicles.show');
+Route::post('/rental', [HomeController::class, 'storeRental'])->name('rentals.store');
+
+
+Route::get('/rentals-orders', [VehicleRentalController::class, 'index'])->name('index');
 
 });
 

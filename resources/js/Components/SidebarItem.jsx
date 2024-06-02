@@ -13,6 +13,7 @@ const SidebarItem = ({ item }) => {
                 key={item.id}
                 href={item.href}
                 active={active}
+                activeClassName="bg-gray-800 text-white"
             >
                 {item.icon}
                 {item.name}

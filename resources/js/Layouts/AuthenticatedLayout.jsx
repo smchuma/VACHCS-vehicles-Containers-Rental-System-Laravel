@@ -8,7 +8,10 @@ export default function Authenticated({ user, header, children }) {
                 <div>
                     <EmpNavbar user={user} header={header} />
                     <main className="bg-gray-100 min-h-screen ">
-                        {children}
+                        <div className="emp-sidebar">
+                            <EmpSidebar />
+                        </div>
+                        <div className="ml-0 md:ml-80">{children}</div>
                     </main>
                 </div>
             </div>

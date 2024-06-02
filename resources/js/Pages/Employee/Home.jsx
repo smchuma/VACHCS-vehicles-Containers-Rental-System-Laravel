@@ -1,4 +1,3 @@
-import EmpSidebar from "@/Components/EmpSidebar";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import VehicleList from "@/Components/Vehicle/VehicleList";
@@ -7,7 +6,6 @@ import { Head } from "@inertiajs/react";
 
 export default function Home({ auth, vehicles, categories }) {
     const { data } = vehicles;
-    console.log(categories);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -18,11 +16,7 @@ export default function Home({ auth, vehicles, categories }) {
             }
         >
             <Head title="Dashboard" />
-
-            <div className="emp-sidebar">
-                <EmpSidebar categories={categories} />
-            </div>
-            <div className="ml-0 md:ml-60 mt-10 ">
+            <div className="mt-10 ">
                 <div className="">
                     <div className="flex justify-end mr-0 md:mr-12 ">
                         <TextInput

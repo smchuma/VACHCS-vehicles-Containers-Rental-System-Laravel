@@ -4,9 +4,9 @@ import { Link } from "@inertiajs/react";
 
 const VehicleList = ({ vehicles }) => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 px-12 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 px-8 ">
             {vehicles.map((vehicle) => (
-                <Link href="" key={vehicle.id}>
+                <Link href={`/vehicles/${vehicle.id}`} key={vehicle.id}>
                     <VehicleCard
                         image={vehicle.image}
                         name={vehicle.name}
