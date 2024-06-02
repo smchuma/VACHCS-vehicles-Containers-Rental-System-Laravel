@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { usePage, Link, useForm } from "@inertiajs/react";
 import { differenceInDays, format } from "date-fns";
+import EmpNavbar from "@/Components/EmpNavbar";
 
 const VehicleShow = () => {
     const { props } = usePage();
-    const { vehicle } = props;
+    const { vehicle, auth } = props;
 
     const generateRentalOrderNumber = () => {
         const randomNumber = Math.floor(Math.random() * 900000) + 100000;
@@ -60,217 +61,237 @@ const VehicleShow = () => {
     const today = format(new Date(), "yyyy-MM-dd");
 
     return (
-        <div className="container mx-auto mt-10 px-8">
-            <Link href="/" className="text-blue-500 mb-4 inline-block">
-                Back
-            </Link>
-            <div className="flex gap-10">
-                <div className="flex-1">
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <strong>Name:</strong> {vehicle.name}
-                        </div>
-                        <div>
-                            <strong>Status:</strong> {vehicle.status}
-                        </div>
-                        <div>
-                            <strong>Capacity:</strong> {vehicle.capacity}
-                        </div>
-                        <div>
-                            <strong>Price per Day:</strong>{" "}
-                            {vehicle.price_per_day}
+        <>
+            <EmpNavbar user={auth.user} />
+            <div className="container mx-auto mt-10 px-8 pb-10">
+                <Link href="/" className="text-blue-500 mb-4 inline-block">
+                    Back
+                </Link>
+                <div className="flex gap-10">
+                    <div className="flex-1">
+                        <img
+                            src={`/storage/${vehicle.image}`}
+                            alt={vehicle.name}
+                            className="w-96"
+                        />
+                        <div className="flex flex-col">
+                            <div className="flex text-xl gap-2">
+                                <p>Vehicle Number: </p>
+                                {vehicle.Vehicle_No}
+                            </div>
+                            <div className="flex text-xl gap-2">
+                                <p>Name: </p>
+                                {vehicle.name}
+                            </div>
+                            <div className="flex text-xl gap-2">
+                                <p>Price per day: </p>
+                                {vehicle.price_per_day}
+                            </div>
+                            <div className="flex text-xl gap-2">
+                                <p>Type: </p>
+                                {vehicle.type}
+                            </div>
+                            <div className="flex text-xl gap-2">
+                                <p>Status: </p>
+                                {vehicle.status}
+                            </div>
                         </div>
                     </div>
-                    <img
-                        src={`/storage/${vehicle.image}`}
-                        alt={vehicle.name}
-                        className="w-full"
-                    />
-                </div>
-                <div className="flex-1">
-                    <form
-                        onSubmit={handleSubmit}
-                        className="grid grid-cols-2 gap-4"
-                    >
-                        <div className="mb-4">
-                            <label className="block text-gray-700">
-                                Customer Name
-                            </label>
-                            <input
-                                type="text"
-                                value={data.customer_name}
-                                onChange={(e) =>
-                                    setData("customer_name", e.target.value)
-                                }
-                                className="w-full border rounded p-2"
-                            />
-                            {errors.customer_name && (
-                                <div className="text-red-500">
-                                    {errors.customer_name}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700">
-                                Customer Email
-                            </label>
-                            <input
-                                type="email"
-                                value={data.customer_email}
-                                onChange={(e) =>
-                                    setData("customer_email", e.target.value)
-                                }
-                                className="w-full border rounded p-2"
-                            />
-                            {errors.customer_email && (
-                                <div className="text-red-500">
-                                    {errors.customer_email}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700">
-                                Customer Phone
-                            </label>
-                            <input
-                                type="text"
-                                value={data.customer_phone}
-                                onChange={(e) =>
-                                    setData("customer_phone", e.target.value)
-                                }
-                                className="w-full border rounded p-2"
-                            />
-                            {errors.customer_phone && (
-                                <div className="text-red-500">
-                                    {errors.customer_phone}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700">
-                                Customer Address
-                            </label>
-                            <input
-                                type="text"
-                                value={data.customer_address}
-                                onChange={(e) =>
-                                    setData("customer_address", e.target.value)
-                                }
-                                className="w-full border rounded p-2"
-                            />
-                            {errors.customer_address && (
-                                <div className="text-red-500">
-                                    {errors.customer_address}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700">
-                                Customer City
-                            </label>
-                            <input
-                                type="text"
-                                value={data.customer_city}
-                                onChange={(e) =>
-                                    setData("customer_city", e.target.value)
-                                }
-                                className="w-full border rounded p-2"
-                            />
-                            {errors.customer_city && (
-                                <div className="text-red-500">
-                                    {errors.customer_city}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700">
-                                Customer ID Number
-                            </label>
-                            <input
-                                type="text"
-                                value={data.customer_id_number}
-                                onChange={(e) =>
-                                    setData(
-                                        "customer_id_number",
-                                        e.target.value
-                                    )
-                                }
-                                className="w-full border rounded p-2"
-                            />
-                            {errors.customer_id_number && (
-                                <div className="text-red-500">
-                                    {errors.customer_id_number}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700">
-                                Start Date
-                            </label>
-                            <input
-                                type="date"
-                                value={data.start_date}
-                                min={today}
-                                onChange={(e) =>
-                                    setData("start_date", e.target.value)
-                                }
-                                className="w-full border rounded p-2"
-                            />
-                            {errors.start_date && (
-                                <div className="text-red-500">
-                                    {errors.start_date}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700">
-                                End Date
-                            </label>
-                            <input
-                                type="date"
-                                value={data.end_date}
-                                min={today}
-                                onChange={(e) =>
-                                    setData("end_date", e.target.value)
-                                }
-                                className="w-full border rounded p-2"
-                            />
-                            {errors.end_date && (
-                                <div className="text-red-500">
-                                    {errors.end_date}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mb-4 flex gap-5">
-                            <div className="div">
-                                <h1>Number of days</h1>
-                                <p>{days}</p>
-                            </div>
-                            <div className="div">
-                                <h1>Total Price</h1>
-                                <p>{totalPrice}</p>
-                            </div>
-                        </div>
 
-                        <div className="flex gap-4">
-                            <button
-                                type="submit"
-                                className="bg-blue-500 text-white py-2 px-4 rounded"
-                                disabled={processing}
-                            >
-                                Submit
-                            </button>
-                            <Link
-                                href="/"
-                                className="bg-gray-500 text-white py-2 px-4 rounded"
-                            >
-                                Cancel
-                            </Link>
-                        </div>
-                    </form>
+                    <div className="flex-1">
+                        <form
+                            onSubmit={handleSubmit}
+                            className="grid grid-cols-2 gap-4"
+                        >
+                            <div className="mb-4">
+                                <label className="block text-gray-700">
+                                    Customer Name
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.customer_name}
+                                    onChange={(e) =>
+                                        setData("customer_name", e.target.value)
+                                    }
+                                    className="w-full border rounded p-2"
+                                />
+                                {errors.customer_name && (
+                                    <div className="text-red-500">
+                                        {errors.customer_name}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700">
+                                    Customer Email
+                                </label>
+                                <input
+                                    type="email"
+                                    value={data.customer_email}
+                                    onChange={(e) =>
+                                        setData(
+                                            "customer_email",
+                                            e.target.value
+                                        )
+                                    }
+                                    className="w-full border rounded p-2"
+                                />
+                                {errors.customer_email && (
+                                    <div className="text-red-500">
+                                        {errors.customer_email}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700">
+                                    Customer Phone
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.customer_phone}
+                                    onChange={(e) =>
+                                        setData(
+                                            "customer_phone",
+                                            e.target.value
+                                        )
+                                    }
+                                    className="w-full border rounded p-2"
+                                />
+                                {errors.customer_phone && (
+                                    <div className="text-red-500">
+                                        {errors.customer_phone}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700">
+                                    Customer Address
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.customer_address}
+                                    onChange={(e) =>
+                                        setData(
+                                            "customer_address",
+                                            e.target.value
+                                        )
+                                    }
+                                    className="w-full border rounded p-2"
+                                />
+                                {errors.customer_address && (
+                                    <div className="text-red-500">
+                                        {errors.customer_address}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700">
+                                    Customer City
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.customer_city}
+                                    onChange={(e) =>
+                                        setData("customer_city", e.target.value)
+                                    }
+                                    className="w-full border rounded p-2"
+                                />
+                                {errors.customer_city && (
+                                    <div className="text-red-500">
+                                        {errors.customer_city}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700">
+                                    Customer ID Number
+                                </label>
+                                <input
+                                    type="text"
+                                    value={data.customer_id_number}
+                                    onChange={(e) =>
+                                        setData(
+                                            "customer_id_number",
+                                            e.target.value
+                                        )
+                                    }
+                                    className="w-full border rounded p-2"
+                                />
+                                {errors.customer_id_number && (
+                                    <div className="text-red-500">
+                                        {errors.customer_id_number}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700">
+                                    Start Date
+                                </label>
+                                <input
+                                    type="date"
+                                    value={data.start_date}
+                                    min={today}
+                                    onChange={(e) =>
+                                        setData("start_date", e.target.value)
+                                    }
+                                    className="w-full border rounded p-2"
+                                />
+                                {errors.start_date && (
+                                    <div className="text-red-500">
+                                        {errors.start_date}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700">
+                                    End Date
+                                </label>
+                                <input
+                                    type="date"
+                                    value={data.end_date}
+                                    min={today}
+                                    onChange={(e) =>
+                                        setData("end_date", e.target.value)
+                                    }
+                                    className="w-full border rounded p-2"
+                                />
+                                {errors.end_date && (
+                                    <div className="text-red-500">
+                                        {errors.end_date}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4 flex gap-5">
+                                <div className="div">
+                                    <h1>Number of days</h1>
+                                    <p>{days}</p>
+                                </div>
+                                <div className="div">
+                                    <h1>Total Price</h1>
+                                    <p>{totalPrice}</p>
+                                </div>
+                            </div>
+
+                            <div className="flex gap-4">
+                                <button
+                                    type="submit"
+                                    className="bg-blue-500 text-white py-2 px-4 rounded"
+                                    disabled={processing}
+                                >
+                                    Submit
+                                </button>
+                                <Link
+                                    href="/"
+                                    className="bg-gray-500 text-white py-2 px-4 rounded"
+                                >
+                                    Cancel
+                                </Link>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

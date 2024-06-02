@@ -6,7 +6,7 @@ import ApplicationLogo from "./ApplicationLogo";
 const EmpNavbar = ({ user }) => {
     return (
         <nav className="flex py-5 justify-between sticky shadow-md  z-50 bg-white top-0  pr-11 ">
-            <div className="flex gap-2 items-center pl-5">
+            <div className="flex gap-2 items-center pl-5 cursor-pointer">
                 <img src="/images/truck3.png" className="h-5" alt="logo" />
                 <ApplicationLogo className="logo" />
             </div>
@@ -18,7 +18,7 @@ const EmpNavbar = ({ user }) => {
                             <span className="inline-flex rounded-md">
                                 <button
                                     type="button"
-                                    className=" rounded-full inline-flex items-center px-3 py-2 border border-gray-200 text-sm leading-4   focus:outline-none transition ease-in-out duration-150"
+                                    className="cursor-pointer rounded-full inline-flex items-center px-3 py-2 border border-gray-200 text-sm leading-4   focus:outline-none transition ease-in-out duration-150"
                                 >
                                     {user.name}
 
