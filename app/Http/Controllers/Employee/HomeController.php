@@ -82,6 +82,6 @@ class HomeController extends Controller
         $vehicle->status = 'Rented';
         $vehicle->save();
 
-        return redirect()->route('index')->with('success', 'Rental created successfully.');
+        return redirect()->route('rental-orders.index')->with('success', 'Rental created successfully.');
     }
 }

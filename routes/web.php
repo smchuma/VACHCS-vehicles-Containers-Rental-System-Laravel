@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\RentalController;
 use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\VehicleController;
 use App\Http\Controllers\Employee\HomeController;
+use App\Http\Controllers\Employee\RentalOrdersController;
 use App\Http\Controllers\Employee\VehicleRentalController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -25,7 +26,7 @@ Route::get('/vehicles/{id}', [HomeController::class, 'show'])->name('vehicles.sh
 Route::post('/rental', [HomeController::class, 'storeRental'])->name('rentals.store');
 
 
-Route::get('/rentals-orders', [VehicleRentalController::class, 'index'])->name('index');
+Route::get('/rentals-orders', [RentalOrdersController::class, 'index'])->name('rental-orders.index');
 
 });
 
