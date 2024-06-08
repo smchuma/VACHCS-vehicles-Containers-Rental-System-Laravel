@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaTrashAlt } from "react-icons/fa";
@@ -10,6 +10,7 @@ const RentalOrders = ({ auth, rentals }) => {
     const [filteredData, setFilteredData] = useState(rentals.data);
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(rentals.current_page);
+    const { delete: destroy } = useForm();
 
     useEffect(() => {
         setFilteredData(
@@ -28,6 +29,27 @@ const RentalOrders = ({ auth, rentals }) => {
 
     const handleSearch = (e) => {
         setSearch(e.target.value);
+    };
+
+    const handleDelete = (rental) => {
+        console.log(rental);
+        if (
+            confirm(
+                `
+            Are you sure you want to delete the rental order?
+            Rental Order Number: ${rental.rental_order_number}
+                `
+            )
+        ) {
+            destroy(route("rental-orders.destroy", rental.id), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    setFilteredData(
+                        filteredData.filter((v) => v.id !== rental.id)
+                    );
+                },
+            });
+        }
     };
 
     return (
@@ -97,7 +119,7 @@ const RentalOrders = ({ auth, rentals }) => {
                                     <button
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            // onDeleteClick(rental);
+                                            handleDelete(rental);
                                         }}
                                     >
                                         <FaTrashAlt className="text-red-500" />

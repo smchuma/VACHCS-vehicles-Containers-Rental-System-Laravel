@@ -27,6 +27,7 @@ Route::post('/rental', [HomeController::class, 'storeRental'])->name('rentals.st
 
 
 Route::get('/rentals-orders', [RentalOrdersController::class, 'index'])->name('rental-orders.index');
+Route::delete('/rentals-orders/{id}', [RentalOrdersController::class, 'destroy'])->name('rental-orders.destroy');
 
 });
 

@@ -30,4 +30,14 @@ class RentalOrdersController extends Controller
             "search" => $request->get('search')
         ]);
     }
+
+    public function destroy($id , Request $request)
+    {
+        $rental = Rental::findOrFail($id);
+        $vehicle = Vehicle::findOrFail($rental->vehicle_id);
+        $vehicle->status = 'Available';
+        $vehicle->save();
+        $rental->delete();
+        return redirect()->back()->with('success', 'Rental order deleted successfully.');
+    }
 }

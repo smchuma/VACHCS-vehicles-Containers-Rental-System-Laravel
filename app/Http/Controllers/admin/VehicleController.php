@@ -76,7 +76,6 @@ class VehicleController extends Controller
     public function update(Request $request, $id)
     {
         $vehicle = Vehicle::findOrFail($id);
-        dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255',
