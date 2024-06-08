@@ -25,9 +25,11 @@ Route::get('/', [HomeController::class,'index'])->name('index');
 Route::get('/vehicles/{id}', [HomeController::class, 'show'])->name('vehicles.show');
 Route::post('/rental', [HomeController::class, 'storeRental'])->name('rentals.store');
 
-
 Route::get('/rentals-orders', [RentalOrdersController::class, 'index'])->name('rental-orders.index');
 Route::delete('/rentals-orders/{id}', [RentalOrdersController::class, 'destroy'])->name('rental-orders.destroy');
+
+Route::get('/customers', [CustomerController::class, 'EmpCustomers'] )->name('EmpCustomers');
+
 
 });
 
