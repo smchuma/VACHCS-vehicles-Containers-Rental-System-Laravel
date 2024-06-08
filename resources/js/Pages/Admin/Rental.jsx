@@ -1,11 +1,13 @@
+import RentalTable from "@/Components/Rentals/RentalTable";
 import AdminAuthenticatedLayout from "@/Layouts/AdminAuthenticatedLayout";
 
-const Vehicles = () => {
+const Rentals = ({ auth, rentals }) => {
+    const { user } = auth;
     return (
         <AdminAuthenticatedLayout>
-            <div>Rentals</div>
+            <RentalTable rentals={rentals} role={user.role} />
         </AdminAuthenticatedLayout>
     );
 };
 
-export default Vehicles;
+export default Rentals;

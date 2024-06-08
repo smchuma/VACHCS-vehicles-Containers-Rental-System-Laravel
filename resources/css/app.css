@@ -63,3 +63,7 @@ body {
 .dropdown.show {
     max-height: 200px; /* Adjust height as needed */
 }
+
+.custom-popup-class {
+    background-color: red;
+}

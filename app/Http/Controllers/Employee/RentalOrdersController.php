@@ -40,4 +40,31 @@ class RentalOrdersController extends Controller
         $rental->delete();
         return redirect()->back()->with('success', 'Rental order deleted successfully.');
     }
+
+
+    //admin side rental view
+
+    public function rental(Request $request) {
+
+        $query = Rental::with(['customer', 'vehicle']);
+
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where('rental_order_number', 'LIKE', "%{$search}%")
+                  ->orWhereHas('customer', function($q) use ($search) {
+                      $q->where('name', 'LIKE', "%{$search}%");
+                  })
+                  ->orWhereHas('vehicle', function($q) use ($search) {
+                      $q->where('name', 'LIKE', "%{$search}%");
+                  });
+        }
+
+        return Inertia::render("Admin/Rental",
+        [
+            "rentals" => $query->orderByDesc('created_at')->paginate(10),
+            "search" => $request->get('search')
+        ]
+
+    );
+    }
 }

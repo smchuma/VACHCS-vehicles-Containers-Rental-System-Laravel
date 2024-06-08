@@ -58,7 +58,7 @@ export const EmpSidebarData = [
     {
         href: "/",
         icon: <MdCarRental className="text-black" size={25} />,
-        label: "Vehicles & Containers",
+        label: "Vehicles",
     },
     {
         href: "/rentals-orders",

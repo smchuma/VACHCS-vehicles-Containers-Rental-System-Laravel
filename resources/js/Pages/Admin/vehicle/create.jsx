@@ -29,11 +29,10 @@ const create = ({ categories, statuses }) => {
             post(route("vehicle.store", { preserveScroll: true }), {
                 onSuccess: () => {
                     reset();
-                    toast.success(session.success);
                 },
             });
         } catch (error) {
-            toast.error(error);
+            alert(error);
         }
     };
 
@@ -105,7 +104,7 @@ const create = ({ categories, statuses }) => {
                         <div className="my-3 mb-5">
                             <InputLabel
                                 htmlFor="type"
-                                value="Vehicle Type"
+                                value="Vehicle Manufacture"
                                 className="mb-2 font-semibold"
                             />
 
@@ -115,7 +114,7 @@ const create = ({ categories, statuses }) => {
                                 name="type"
                                 value={data.type}
                                 className="mt-1 block w-full placeholder:text-gray-400 placeholder:text-xs"
-                                placeholder="Enter the Vehicle Type"
+                                placeholder="Enter the Vehicle Manufacture"
                                 isFocused={true}
                                 onChange={(e) =>
                                     setData("type", e.target.value)

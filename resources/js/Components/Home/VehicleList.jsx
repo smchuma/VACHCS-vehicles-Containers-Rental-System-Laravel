@@ -1,7 +1,7 @@
 import React from "react";
-import VehicleCard from "./VehicleCard";
 import { Link } from "@inertiajs/react";
 import toast, { Toaster } from "react-hot-toast";
+import VehicleCard from "./VehicleCard";
 
 const VehicleList = ({ vehicles }) => {
     const handleClick = (e, vehicle) => {

@@ -1,6 +1,6 @@
+import VehicleList from "@/Components/Home/VehicleList";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import VehicleList from "@/Components/Vehicle/VehicleList";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 

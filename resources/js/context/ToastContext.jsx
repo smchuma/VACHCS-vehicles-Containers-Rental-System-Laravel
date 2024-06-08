@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { usePage } from "@inertiajs/react";
 
@@ -7,13 +7,14 @@ const ToastContext = createContext();
 export const ToastProvider = ({ children }) => {
     const { session } = usePage().props;
 
-    if (session.success) {
-        toast.success(session.success);
-    }
-
-    if (session.error) {
-        toast.error(session.error);
-    }
+    useEffect(() => {
+        if (session.success) {
+            toast.success(session.success);
+        }
+        if (session.error) {
+            toast.error(session.error);
+        }
+    }, [session]);
 
     return (
         <ToastContext.Provider value={""}>

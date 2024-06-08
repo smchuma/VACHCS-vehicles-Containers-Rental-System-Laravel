@@ -55,7 +55,9 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::get('/employees', [EmployeeController::class, 'index'] )->name('employee');
 
-        Route::get('/rentals', [RentalController::class, 'index'] )->name('rental');
+        // Route::get('/rentals', [RentalController::class, 'index'] )->name('rental');
+        Route::get('/rentals', [RentalOrdersController::class, 'rental'])->name('rental.index');
+
 
         Route::get('/customers', [CustomerController::class, 'index'] )->name('customer');
 

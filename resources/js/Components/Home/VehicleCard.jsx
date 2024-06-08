@@ -6,7 +6,6 @@ import {
     CardBody,
     CardFooter,
     Typography,
-    Button,
 } from "@material-tailwind/react";
 
 const VehicleCard = ({ image, name, status, capacity, pricePerDay }) => {

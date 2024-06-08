@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { usePage } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import VehicleTable from "./VehicleTable";
 import UpdateForm from "./UpdateForm";
-import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
 import UpdateImage from "./UpdateImage";
+import Swal from "sweetalert2";
 
 const VehicleBody = () => {
     const { vehicle } = usePage().props;
     const [selectedVehicle, setSelectedVehicle] = useState(null);
-    const [vehicleToDelete, setVehicleToDelete] = useState(null);
     const [openUpdateImage, setOpenUpdateImage] = useState(false);
     const [open, setOpen] = useState(false);
+    const { delete: destroy } = useForm();
 
     const openModal = () => {
         setOpen(true);
@@ -36,11 +36,27 @@ const VehicleBody = () => {
     };
 
     const handleDeleteClick = (vehicle) => {
-        setVehicleToDelete(vehicle);
-    };
-
-    const handleCancelDelete = () => {
-        setVehicleToDelete(null);
+        Swal.fire({
+            title: `Vehicle Number: ${vehicle.Vehicle_No}`,
+            text: `Are you sure you want to delete this vehicle?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, keep it",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                destroy(route("vehicle.destroy", vehicle.id), {
+                    preserveScroll: true,
+                });
+                Swal.fire(
+                    "Deleted!",
+                    "The vehicle has been deleted.",
+                    "success"
+                );
+            }
+        });
     };
 
     const handleImageClick = (vehicle) => {
@@ -67,12 +83,7 @@ const VehicleBody = () => {
                     open={open}
                 />
             )}
-            {vehicleToDelete && (
-                <DeleteConfirmationDialog
-                    vehicle={vehicleToDelete}
-                    onCancel={handleCancelDelete}
-                />
-            )}
+            \
             {selectedVehicle && (
                 <UpdateImage
                     vehicle={selectedVehicle}

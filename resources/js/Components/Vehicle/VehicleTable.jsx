@@ -43,9 +43,9 @@ const VehicleTable = ({ vehicle, onRowClick, onDeleteClick, onImageClick }) => {
                 <thead>
                     <tr className="bg-gray-900 text-white">
                         <th className="py-4">Image</th>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th>Type</th>
+                        <th>VIN</th>
+                        <th>Vehicle Name</th>
+                        <th>Manufacture</th>
                         <th>Capacity</th>
                         <th>Status</th>
                         <th>Price Per Day</th>
