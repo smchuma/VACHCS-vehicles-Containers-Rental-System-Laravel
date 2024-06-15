@@ -60,7 +60,7 @@ const RentalTable = ({ rentals, role }) => {
 
     return (
         <>
-            <div className="flex flex-col  px-6 mt-16">
+            <div className="flex flex-col  pr-6 mt-16">
                 <div className="flex justify-between items-center mb-10">
                     <h1 className="text-xl">Available Rentals</h1>
                     <div className="flex justify-end items-center mb-4 px-2 border border-gray-500 rounded-lg w-80">

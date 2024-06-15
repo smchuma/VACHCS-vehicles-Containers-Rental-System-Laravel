@@ -94,7 +94,7 @@ const CustomerSearch = ({ onSelect }) => {
                 )}
                 {noResults && search.trim() === "" && (
                     <div className="mt-4 text-center">
-                        <p className="">No results found</p>
+                        <p className="">Search your customer</p>
                     </div>
                 )}
             </div>

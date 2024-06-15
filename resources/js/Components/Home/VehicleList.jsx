@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
-import toast, { Toaster } from "react-hot-toast";
 import VehicleCard from "./VehicleCard";
 
 const VehicleList = ({ vehicles }) => {
@@ -15,26 +14,7 @@ const VehicleList = ({ vehicles }) => {
     };
     return (
         <>
-            <Toaster
-                position="top-right"
-                reverseOrder={false}
-                toastOptions={{
-                    className: "",
-                    duration: 5000,
-                    style: {
-                        background: "#1a0e04",
-                        color: "#fff",
-                    },
-                    success: {
-                        duration: 5000,
-                        theme: {
-                            primary: "green",
-                            secondary: "black",
-                        },
-                    },
-                }}
-            />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 px-8 ">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 px-8 mb-52 ">
                 {vehicles.map((vehicle) => (
                     <Link
                         href={`/vehicles/${vehicle.id}`}

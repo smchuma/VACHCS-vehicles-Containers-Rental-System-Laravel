@@ -75,4 +75,32 @@ class CustomerController extends Controller
         return redirect()->back()->with('success', 'Customer deleted successfully.');
     }
 
+
+    //update
+
+    public function update(Request $request, $id)
+    {
+        $customer = Customer::findOrFail($id);
+        $request->validate([
+            'id_number' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'phone_number' => 'required|string|max:15',
+
+        ]);
+
+        $customer->id_number = $request->input('id_number');
+        $customer->name = $request->input('name');
+        $customer->phone_number = $request->input('phone_number');
+        $customer->email = $request->input('email');
+        $customer->address = $request->input('address');
+        $customer->city = $request->input('city');
+
+        $customer->save();
+
+
+        return redirect()->back()->with('success', 'Customer updated successfully.');
+
+    }
+
 }

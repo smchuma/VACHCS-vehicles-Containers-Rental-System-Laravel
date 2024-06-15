@@ -31,6 +31,8 @@ Route::delete('/rentals-orders/{id}', [RentalOrdersController::class, 'destroy']
 Route::get('/customers', [CustomerController::class, 'EmpCustomers'] )->name('EmpCustomers');
 Route::post('/customers', [CustomerController::class, 'postCustomer'] )->name('postCustomer');
 Route::delete('/customers/{id}', [CustomerController::class, 'destroy'] )->name('customer.destroy');
+Route::put('/customers/{id}', [CustomerController::class, 'update'] )->name('customer.update');
+
 
 
 });

@@ -38,15 +38,15 @@ const CustomerHeader = () => {
                 reset();
                 closeModal();
             },
-            onError: () => {
+            onError: (errors) => {
                 // Handle error
-                toast.error("An error occurred. Please try again.");
+                toast.error("Failed");
             },
         });
     };
 
     return (
-        <div className="sm:flex sm:items-center sm:justify-between px-5 pt-10">
+        <div className="sm:flex sm:items-center sm:justify-between pr-10 pt-10">
             <div className="flex items-center mt-4 w-full">
                 <div className="w-full flex justify-end">
                     <PrimaryButton

@@ -1,5 +1,6 @@
 import CustomerHeader from "@/Components/Customers/CustomerHeader";
 import CustomersTable from "@/Components/Customers/CustomersTable";
+import UpdateCustomer from "@/Components/Customers/UpdateCustomer";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, usePage } from "@inertiajs/react";
 import { useState } from "react";
@@ -7,14 +8,20 @@ import { useState } from "react";
 const Customer = ({ auth }) => {
     const { customers } = usePage().props;
     const [selectedCustomer, setSelectedCustomer] = useState(null);
+    const [open, setOpen] = useState(false);
 
     const handleRowClick = (customer) => {
-        setSelectedVehicle(customer);
+        setSelectedCustomer(customer);
         setOpen(true);
     };
 
-    const handleDeleteClick = (customer) => {
-        setVehicleToDelete(customer);
+    const openModal = () => {
+        setOpen(true);
+    };
+
+    const closeModal = () => {
+        setOpen(false);
+        setSelectedCustomer(null);
     };
 
     return (
@@ -33,7 +40,14 @@ const Customer = ({ auth }) => {
                     <CustomersTable
                         customer={customers}
                         onRowClick={handleRowClick}
-                        onDeleteClick={handleDeleteClick}
+                    />
+                )}
+                {selectedCustomer && (
+                    <UpdateCustomer
+                        customer={selectedCustomer}
+                        openModal={openModal}
+                        closeModal={closeModal}
+                        open={open}
                     />
                 )}
             </div>
