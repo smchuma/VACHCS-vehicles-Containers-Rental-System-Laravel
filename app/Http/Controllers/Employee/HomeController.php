@@ -29,10 +29,21 @@ class HomeController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show($id , Request $request)
     {
         $vehicle = Vehicle::findOrFail($id);
-        return Inertia::render('Employee/VehicleShow', ['vehicle' => $vehicle]);
+        $query = Customer::query();
+
+        if($request->has('search')){
+            $search = $request->get('search');
+            $query->where('name', 'LIKE', "%{$search}%");
+        }
+
+        return Inertia::render('Employee/VehicleShow', [
+            'vehicle' => $vehicle,
+            'customers' => $query->orderByDesc('created_at')->paginate(10)
+
+        ]);
     }
 
     public function storeRental(Request $request)
@@ -40,14 +51,12 @@ class HomeController extends Controller
 
         $request->validate([
             'rental_order_number' => 'required|string|max:255',
-            'customer_id_number' => 'required|string|max:255',
-            'customer_name' => 'required|string|max:255',
-            'customer_email' => 'required|string|email|max:255',
-            'customer_phone' => 'required|string|max:15',
+            'vehicle_id' => 'required|exists:vehicles,id',
+            'customer_id' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'total_price' => 'required|integer',
-            'vehicle_id' => 'required|exists:vehicles,id'
+
         ]);
 
         $vehicle = Vehicle::findOrFail($request->vehicle_id);
@@ -57,21 +66,11 @@ class HomeController extends Controller
             return redirect()->back()->withErrors(['vehicle_id' => 'This vehicle is already rented.']);
         }
 
-        // Create the customer
-        $customer = Customer::create([
-            'id_number' => $request->customer_id_number,
-            'name' => $request->customer_name,
-            'phone_number' => $request->customer_phone,
-            'email' => $request->customer_email,
-            'address' => $request->customer_address,
-            'city' => $request->customer_city,
-        ]);
-
 
         // Create the rental
          Rental::create([
             'rental_order_number' => $request->rental_order_number,
-            'customer_id' => $customer->id,
+            'customer_id' => $request->customer_id,
             'vehicle_id' => $request->vehicle_id,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,

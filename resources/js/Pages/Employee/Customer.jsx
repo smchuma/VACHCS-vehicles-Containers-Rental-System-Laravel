@@ -1,3 +1,4 @@
+import CustomerHeader from "@/Components/Customers/CustomerHeader";
 import CustomersTable from "@/Components/Customers/CustomersTable";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, usePage } from "@inertiajs/react";
@@ -6,8 +7,6 @@ import { useState } from "react";
 const Customer = ({ auth }) => {
     const { customers } = usePage().props;
     const [selectedCustomer, setSelectedCustomer] = useState(null);
-
-    console.log("customer", customers.data);
 
     const handleRowClick = (customer) => {
         setSelectedVehicle(customer);
@@ -19,15 +18,9 @@ const Customer = ({ auth }) => {
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard
-                </h2>
-            }
-        >
+        <AuthenticatedLayout user={auth.user}>
             <Head title="Customers" />
+            <CustomerHeader />
             <div className=" ">
                 {!customers.data && (
                     <div className="flex justify-center items-center h-64">

@@ -1,13 +1,16 @@
+import { useForm } from "@inertiajs/react";
 import React, { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaTrashAlt } from "react-icons/fa";
 import { GiPencil } from "react-icons/gi";
 import { GrNext, GrPrevious } from "react-icons/gr";
+import Swal from "sweetalert2";
 
-const CustomersTable = ({ customer, onRowClick, onDeleteClick }) => {
+const CustomersTable = ({ customer, onRowClick }) => {
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(customer.current_page);
     const [filteredData, setFilteredData] = useState(customer.data);
+    const { delete: destroy } = useForm();
 
     useEffect(() => {
         setFilteredData(
@@ -25,17 +28,47 @@ const CustomersTable = ({ customer, onRowClick, onDeleteClick }) => {
         // Handle pagination logic here, possibly with Inertia router
     };
 
+    const handleDelete = (customer) => {
+        Swal.fire({
+            title: `Customer Name: ${customer.name}`,
+            text: `Are you sure you want to delete this customer?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, keep it",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                destroy(route("customer.destroy", customer.id), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        setFilteredData(
+                            filteredData.filter((v) => v.id !== customer.id)
+                        );
+                    },
+                });
+                Swal.fire(
+                    "Deleted!",
+                    "The customer has been deleted.",
+                    "success"
+                );
+            }
+        });
+    };
+
     return (
-        <div className="flex flex-col items-end px-6 mt-16">
-            <div className="flex justify-end items-center mb-4 px-2 border border-gray-500 rounded-lg w-80">
-                <CiSearch size={25} />
-                <input
-                    type="text"
-                    value={search}
-                    onChange={handleSearch}
-                    placeholder="Search customers..."
-                    className=" border-0 bg-transparent placeholder:text-gray-600 w-80 outline-none focus:ring-0"
-                />
+        <div className="flex flex-col px-6 mt-10">
+            <div className="flex justify-between items-center mb-10">
+                <h1 className="text-xl">Available Customers</h1>
+                <div className="flex justify-end items-center px-2 border border-gray-500 rounded-lg w-80">
+                    <CiSearch size={25} />
+                    <input
+                        type="text"
+                        value={search}
+                        onChange={handleSearch}
+                        placeholder="Search vehicles..."
+                        className=" border-0 bg-transparent placeholder:text-gray-600 w-80 outline-none focus:ring-0"
+                    />
+                </div>
             </div>
             <table className="min-w-full leading-normal">
                 <thead>
@@ -83,7 +116,7 @@ const CustomersTable = ({ customer, onRowClick, onDeleteClick }) => {
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        onDeleteClick(customer);
+                                        handleDelete(customer);
                                     }}
                                 >
                                     <FaTrashAlt className="text-red-500" />
@@ -93,6 +126,9 @@ const CustomersTable = ({ customer, onRowClick, onDeleteClick }) => {
                     ))}
                 </tbody>
             </table>
+            {filteredData.length == 0 && (
+                <h1 className="text-center my-5">No Customers Found</h1>
+            )}
             <div className="flex justify-between  items-center gap-x-5 mt-5 mb-32">
                 <button
                     onClick={() => handlePageChange(page - 1)}

@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import TextInput from "./TextInput";
 import InputLabel from "./InputLabel";
 import PrimaryButton from "./PrimaryButton";
-import { Button } from "@material-tailwind/react";
 import { Link, useForm } from "@inertiajs/react";
 import { differenceInDays, format } from "date-fns";
 import toast, { Toaster } from "react-hot-toast";
+import { CiSearch } from "react-icons/ci";
+import Modal from "./Modal";
+import CustomerSearch from "./Customers/CustomerSearch";
+import CustomerDetails from "./Customers/CustomerDetails";
+import { Button } from "@material-tailwind/react";
 
 const CustomerForm = ({ vehicle }) => {
     const generateRentalOrderNumber = () => {
@@ -13,19 +17,26 @@ const CustomerForm = ({ vehicle }) => {
         return `REN-${randomNumber}`;
     };
 
-    const { data, setData, post, processing, errors } = useForm({
+    const [selectedCustomer, setSelectedCustomer] = useState(null);
+
+    const { data, setData, post, errors } = useForm({
         rental_order_number: generateRentalOrderNumber(),
-        customer_name: "",
-        customer_email: "",
-        customer_phone: "",
-        customer_address: "",
-        customer_city: "",
-        customer_id_number: "",
+        customer_id: "",
         start_date: "",
         end_date: "",
         total_price: 0,
         vehicle_id: vehicle.id,
     });
+
+    const [open, setOpen] = useState(false);
+
+    const openModal = () => {
+        setOpen(true);
+    };
+
+    const closeModal = () => {
+        setOpen(false);
+    };
 
     const [totalPrice, setTotalPrice] = useState(0);
     const [days, setDays] = useState(0);
@@ -50,193 +61,37 @@ const CustomerForm = ({ vehicle }) => {
         e.preventDefault();
         post("/rental", {
             preserveScroll: true,
-            onSuccess: () => {
-                toast.success("Rental order created successfully");
-            },
-            onError: () => {
-                // Handle error
-                toast.error("An error occurred. Please try again.");
-            },
         });
     };
 
     const today = format(new Date(), "yyyy-MM-dd");
 
+    const handleCustomerSelect = (customer) => {
+        setData("customer_id", customer.id);
+        setSelectedCustomer(customer);
+        closeModal();
+    };
+
     return (
         <>
-            <Toaster
-                position="top-right"
-                reverseOrder={false}
-                toastOptions={{
-                    className: "",
-                    duration: 5000,
-                    style: {
-                        background: "#2fbe51",
-                        color: "#fff",
-                    },
-                    success: {
-                        duration: 5000,
-                        theme: {
-                            primary: "green",
-                            secondary: "black",
-                        },
-                    },
-                }}
-            />
+            <div className="flex justify-end items-center mb-4 px-2 border border-gray-500 rounded-lg w-full">
+                <CiSearch size={25} />
+                <TextInput
+                    type="text"
+                    onClick={openModal}
+                    placeholder="Click to search customer"
+                    className=" border-0 bg-transparent placeholder:text-gray-600 w-full outline-none focus:ring-0"
+                />
+                <Modal show={open} onClose={closeModal}>
+                    <CustomerSearch onSelect={handleCustomerSelect} />
+                </Modal>
+            </div>
+            <CustomerDetails selectedCustomer={selectedCustomer} />
             <form
                 onSubmit={handleSubmit}
                 className="rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2"
             >
-                <div className="-mx-3 md:flex mb-2">
-                    <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                        <InputLabel
-                            className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                            for="grid-name"
-                            required
-                        >
-                            Customer Name
-                        </InputLabel>
-                        <TextInput
-                            className="placeholder:text-sm appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-                            id="grid-name"
-                            type="text"
-                            value={data.customer_name}
-                            onChange={(e) =>
-                                setData("customer_name", e.target.value)
-                            }
-                            placeholder="Enter the name"
-                        />
-                        {errors.customer_name && (
-                            <div className="text-red-500 text-xs mb-2">
-                                {errors.customer_name}
-                            </div>
-                        )}
-                    </div>
-                    <div className="md:w-1/2 px-3">
-                        <InputLabel
-                            className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                            for="grid-email"
-                            required
-                        >
-                            Customer Email
-                        </InputLabel>
-                        <TextInput
-                            className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 placeholder:text-sm"
-                            id="grid-email"
-                            type="email"
-                            placeholder="Enter email"
-                            value={data.customer_email}
-                            onChange={(e) =>
-                                setData("customer_email", e.target.value)
-                            }
-                        />
-                        {errors.customer_email && (
-                            <div className="text-red-500 text-xs my-2">
-                                {errors.customer_email}
-                            </div>
-                        )}
-                    </div>
-                </div>
-                <div className="-mx-3 md:flex mb-2">
-                    <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                        <InputLabel
-                            className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                            for="grid-phone"
-                            required
-                        >
-                            Customer Phone
-                        </InputLabel>
-                        <TextInput
-                            className="placeholder:text-sm appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-                            id="grid-phone"
-                            type="text"
-                            placeholder="Enter the phone number"
-                            value={data.customer_phone}
-                            onChange={(e) =>
-                                setData("customer_phone", e.target.value)
-                            }
-                        />
-                        {errors.customer_phone && (
-                            <div className="text-red-500 text-xs mb-2">
-                                {errors.customer_phone}
-                            </div>
-                        )}
-                    </div>
-                    <div className="md:w-1/2 px-3">
-                        <InputLabel
-                            className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                            for="grid-license-number"
-                            required
-                        >
-                            Customer License Number
-                        </InputLabel>
-                        <TextInput
-                            className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 placeholder:text-sm"
-                            id="grid-license-number"
-                            type="text"
-                            placeholder="Enter the license number"
-                            value={data.customer_id_number}
-                            onChange={(e) =>
-                                setData("customer_id_number", e.target.value)
-                            }
-                        />
-                        {errors.customer_id_number && (
-                            <div className="text-red-500 text-xs my-2">
-                                {errors.customer_id_number}
-                            </div>
-                        )}
-                    </div>
-                </div>
-                <div className="-mx-3 md:flex mb-2">
-                    <div className="md:w-full px-3">
-                        <InputLabel
-                            className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                            for="grid-address"
-                        >
-                            Customer Address
-                        </InputLabel>
-                        <TextInput
-                            className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"
-                            id="grid-address"
-                            type="text"
-                            placeholder="Enter the address"
-                            value={data.customer_address}
-                            onChange={(e) =>
-                                setData("customer_address", e.target.value)
-                            }
-                        />
-                        {errors.customer_address && (
-                            <div className="text-red-500 text-xs mb-2">
-                                {errors.customer_address}
-                            </div>
-                        )}
-                    </div>
-                </div>
-
                 <div className="-mx-3 md:flex mb-6">
-                    <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                        <InputLabel
-                            className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                            for="grid-city"
-                        >
-                            City
-                        </InputLabel>
-                        <TextInput
-                            className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-                            id="grid-city"
-                            type="text"
-                            placeholder="Albuquerque"
-                            value={data.customer_city}
-                            onChange={(e) =>
-                                setData("customer_city", e.target.value)
-                            }
-                        />
-                        {errors.customer_city && (
-                            <div className="text-red-500 text-xs mb-2">
-                                {errors.customer_city}
-                            </div>
-                        )}
-                    </div>
                     <div className="md:w-1/2 px-3">
                         <InputLabel
                             className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"

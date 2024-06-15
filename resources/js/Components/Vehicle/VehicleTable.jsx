@@ -3,6 +3,7 @@ import { CiSearch } from "react-icons/ci";
 import { FaTrashAlt } from "react-icons/fa";
 import { GiPencil } from "react-icons/gi";
 import { GrNext, GrPrevious } from "react-icons/gr";
+import TextInput from "../TextInput";
 
 const VehicleTable = ({ vehicle, onRowClick, onDeleteClick, onImageClick }) => {
     const [search, setSearch] = useState("");
@@ -31,7 +32,7 @@ const VehicleTable = ({ vehicle, onRowClick, onDeleteClick, onImageClick }) => {
         <div className="flex flex-col items-end">
             <div className="flex justify-end items-center mb-4 px-2 border border-gray-500 rounded-lg w-80">
                 <CiSearch size={25} />
-                <input
+                <TextInput
                     type="text"
                     value={search}
                     onChange={handleSearch}

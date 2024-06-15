@@ -60,16 +60,19 @@ const RentalTable = ({ rentals, role }) => {
 
     return (
         <>
-            <div className="flex flex-col items-end px-6 mt-16">
-                <div className="flex justify-end items-center mb-4 px-2 border border-gray-500 rounded-lg w-80">
-                    <CiSearch size={25} />
-                    <input
-                        type="text"
-                        value={search}
-                        onChange={handleSearch}
-                        placeholder="Search vehicles..."
-                        className=" border-0 bg-transparent placeholder:text-gray-600 w-80 outline-none focus:ring-0"
-                    />
+            <div className="flex flex-col  px-6 mt-16">
+                <div className="flex justify-between items-center mb-10">
+                    <h1 className="text-xl">Available Rentals</h1>
+                    <div className="flex justify-end items-center mb-4 px-2 border border-gray-500 rounded-lg w-80">
+                        <CiSearch size={25} />
+                        <input
+                            type="text"
+                            value={search}
+                            onChange={handleSearch}
+                            placeholder="Search vehicles..."
+                            className=" border-0 bg-transparent placeholder:text-gray-600 w-80 outline-none focus:ring-0"
+                        />
+                    </div>
                 </div>
                 <table className="min-w-full leading-normal">
                     <thead>
@@ -145,7 +148,10 @@ const RentalTable = ({ rentals, role }) => {
                         ))}
                     </tbody>
                 </table>
-                <div className="flex justify-between  items-center gap-x-5 mt-5 mb-32">
+                {filteredData.length == 0 && (
+                    <h1 className="text-center my-5">No Rental Found</h1>
+                )}
+                {/* <div className="flex justify-between  items-center gap-x-5 mt-5 mb-32">
                     <button
                         onClick={() => handlePageChange(page - 1)}
                         disabled={page === 1}
@@ -163,7 +169,7 @@ const RentalTable = ({ rentals, role }) => {
                     >
                         <GrNext />
                     </button>
-                </div>
+                </div> */}
             </div>
         </>
     );
