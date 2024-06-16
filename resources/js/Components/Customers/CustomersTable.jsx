@@ -5,6 +5,8 @@ import { FaTrashAlt } from "react-icons/fa";
 import { GiPencil } from "react-icons/gi";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import Swal from "sweetalert2";
+import Dropdown from "../Dropdown";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 const CustomersTable = ({ customer, onRowClick }) => {
     const [search, setSearch] = useState("");
@@ -107,20 +109,39 @@ const CustomersTable = ({ customer, onRowClick }) => {
                                 {customer.city}
                             </td>
                             <td className="text-center border-r-2 border-gray-200 ">
-                                <button>
-                                    <GiPencil
-                                        className="mr-4"
-                                        onClick={() => onRowClick(customer)}
-                                    />
-                                </button>
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleDelete(customer);
-                                    }}
-                                >
-                                    <FaTrashAlt className="text-red-500" />
-                                </button>
+                                <Dropdown>
+                                    <Dropdown.Trigger>
+                                        <button className="text-gray-500">
+                                            <RiArrowDropDownLine size={25} />
+                                        </button>
+                                    </Dropdown.Trigger>
+                                    <Dropdown.Content>
+                                        <div className="flex gap-2 flex-col">
+                                            <div
+                                                className="flex hover:bg-gray-200 py-2 px-2 "
+                                                onClick={() =>
+                                                    onRowClick(customer)
+                                                }
+                                            >
+                                                <button className="flex items-center gap-2 ">
+                                                    <GiPencil />
+                                                    Edit
+                                                </button>
+                                            </div>
+                                            <div
+                                                className="hover:bg-gray-200 py-2 px-2"
+                                                onClick={() =>
+                                                    handleDelete(customer)
+                                                }
+                                            >
+                                                <button className="flex items-center gap-2">
+                                                    <FaTrashAlt className="text-red-500" />
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </Dropdown.Content>
+                                </Dropdown>
                             </td>
                         </tr>
                     ))}

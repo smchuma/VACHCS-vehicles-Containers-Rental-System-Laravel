@@ -67,4 +67,22 @@ class RentalOrdersController extends Controller
 
     );
     }
+
+    //rentals report
+
+    public function getRentalsByStatus($status)
+{
+
+    $rentals = Rental::where('status', $status)->with(['customer', 'vehicle'])->get();
+
+
+    return Inertia::render("Employee/ReportDetails",
+    [
+        "rentals" => $rentals,
+        "status" => $status
+
+    ]
+    );
+
+}
 }

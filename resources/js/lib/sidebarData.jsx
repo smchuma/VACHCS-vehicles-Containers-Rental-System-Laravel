@@ -76,7 +76,7 @@ export const EmpSidebarData = [
         label: "Reports",
     },
     {
-        href: "/settings",
+        href: "",
         icon: <IoIosSettings className="text-black" size={25} />,
         label: "Settings",
     },
