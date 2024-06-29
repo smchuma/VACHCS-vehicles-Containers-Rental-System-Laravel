@@ -2,10 +2,9 @@ import { useForm, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
-import { GrNext, GrPrevious } from "react-icons/gr";
 import Swal from "sweetalert2";
 
-const RentalTable = ({ rentals, role }) => {
+const RentalTable = ({ rentals, role, onRowClick }) => {
     const [filteredData, setFilteredData] = useState(rentals.data);
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(rentals.current_page);
@@ -56,6 +55,19 @@ const RentalTable = ({ rentals, role }) => {
 
     const handleSearch = (e) => {
         setSearch(e.target.value);
+    };
+
+    const getStatusClass = (status) => {
+        switch (status) {
+            case "Approved":
+                return "bg-green-500 text-white px-3 py-1 rounded";
+            case "Pending":
+                return "bg-gray-500 text-white px-3 py-1 rounded";
+            case "Rejected":
+                return "bg-red-500 text-white px-3 py-1 rounded";
+            default:
+                return "bg-gray-500 text-white px-3 py-1 rounded";
+        }
     };
 
     return (
@@ -112,16 +124,20 @@ const RentalTable = ({ rentals, role }) => {
                                     {rental.total_price}
                                 </td>
 
-                                <td className="text-center border-r-2 border-gray-200">
-                                    {rental.status}
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
+                                    <span
+                                        className={getStatusClass(
+                                            rental.status
+                                        )}
+                                    >
+                                        {rental.status.charAt(0).toUpperCase() +
+                                            rental.status.slice(1)}
+                                    </span>
                                 </td>
                                 <td className="text-center border-r-2 border-gray-200 ">
                                     {role == 1 ? (
                                         <button
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                // handleDelete(rental);
-                                            }}
+                                            onClick={() => onRowClick(rental)}
                                             className="mr-2"
                                         >
                                             <FaPencilAlt

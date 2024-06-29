@@ -85,4 +85,23 @@ class RentalOrdersController extends Controller
     );
 
 }
+
+public function update(Request $request, $id)
+{
+    $rental = Rental::findOrFail($id);
+    $request->validate([
+
+        'status' => 'required',
+
+
+    ]);
+
+
+    $rental->status = $request->input('status');
+    $rental->save();
+    return redirect()->back()->with('success', 'Rental status updated successfully.');
+
+}
+
+
 }
