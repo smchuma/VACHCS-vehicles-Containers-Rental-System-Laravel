@@ -21,13 +21,7 @@ const VehicleList = ({ vehicles }) => {
                         key={vehicle.id}
                         onClick={(e) => handleClick(e, vehicle)}
                     >
-                        <VehicleCard
-                            image={vehicle.image}
-                            name={vehicle.name}
-                            status={vehicle.status}
-                            capacity={vehicle.capacity}
-                            pricePerDay={vehicle.price_per_day}
-                        />
+                        <VehicleCard vehicle={vehicle} />
                     </Link>
                 ))}
             </div>

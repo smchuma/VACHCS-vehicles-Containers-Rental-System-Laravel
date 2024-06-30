@@ -46,6 +46,7 @@ class VehicleController extends Controller
             'Vehicle_No' => 'required|string|max:255|unique:'.Vehicle::class,
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255',
+            'manufacture' => 'required|string|max:255',
             'capacity' => 'required|integer',
             'price_per_day' => 'required|integer',
             'status' => 'required',
@@ -62,6 +63,7 @@ class VehicleController extends Controller
             'Vehicle_No' => $request->Vehicle_No,
             'name' => $request->name,
             'type' => $request->type,
+            'manufacture' => $request->manufacture,
             'capacity' => $request->capacity,
             'price_per_day' => $request->price_per_day,
             'status' => $request->status,
@@ -75,10 +77,12 @@ class VehicleController extends Controller
     //update
     public function update(Request $request, $id)
     {
+
         $vehicle = Vehicle::findOrFail($id);
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255',
+            'manufacture' => 'required|string|max:255',
             'capacity' => 'required|integer',
             'price_per_day' => 'required|integer',
             'status' => 'required',
@@ -86,9 +90,11 @@ class VehicleController extends Controller
 
         ]);
 
+
         $vehicle->name = $request->input('name');
         $vehicle->type = $request->input('type');
         $vehicle->capacity = $request->input('capacity');
+        $vehicle->manufacture = $request->input('manufacture');
         $vehicle->status = $request->input('status');
         $vehicle->price_per_day = $request->input('price_per_day');
         if ($request->hasFile('image')) {

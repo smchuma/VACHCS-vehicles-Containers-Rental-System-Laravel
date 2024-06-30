@@ -7,14 +7,14 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
+import { Button } from "@material-tailwind/react";
 
 const create = ({ categories, statuses }) => {
-    const { session } = usePage().props;
-
     const { data, setData, post, errors, reset } = useForm({
         Vehicle_No: "",
         name: "",
         type: "",
+        manufacture: "",
         capacity: "",
         price_per_day: "",
         status: "",
@@ -109,12 +109,37 @@ const create = ({ categories, statuses }) => {
                             />
 
                             <TextInput
+                                id="manufacture"
+                                type="text"
+                                name="manufacture"
+                                value={data.manufacture}
+                                className="mt-1 block w-full placeholder:text-gray-400 placeholder:text-xs"
+                                placeholder="Enter the Vehicle Manufacture"
+                                isFocused={true}
+                                onChange={(e) =>
+                                    setData("manufacture", e.target.value)
+                                }
+                            />
+
+                            <InputError
+                                message={errors.manufacture}
+                                className="mt-2"
+                            />
+                        </div>
+                        <div className="my-3 mb-5">
+                            <InputLabel
+                                htmlFor="type"
+                                value="Vehicle Type"
+                                className="mb-2 font-semibold"
+                            />
+
+                            <TextInput
                                 id="type"
                                 type="text"
                                 name="type"
                                 value={data.type}
                                 className="mt-1 block w-full placeholder:text-gray-400 placeholder:text-xs"
-                                placeholder="Enter the Vehicle Manufacture"
+                                placeholder="Enter the Vehicle Type"
                                 isFocused={true}
                                 onChange={(e) =>
                                     setData("type", e.target.value)
@@ -278,12 +303,12 @@ const create = ({ categories, statuses }) => {
                     <div className="flex mb-20 mt-3 gap-3">
                         <PrimaryButton className="w-32">Add</PrimaryButton>
                         <Link href="/admin/vehicle">
-                            <PrimaryButton
+                            <Button
                                 type="s"
-                                className="w-32 bg-transparent border border-black text-black hover:text-white "
+                                className="w-32 bg-transparent border border-black text-black "
                             >
                                 CANCEL
-                            </PrimaryButton>
+                            </Button>
                         </Link>
                     </div>
                 </form>

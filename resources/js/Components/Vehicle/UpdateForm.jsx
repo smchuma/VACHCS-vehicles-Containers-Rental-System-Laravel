@@ -9,6 +9,7 @@ const UpdateForm = ({ vehicle, closeModal, open }) => {
     const { data, setData, put, errors } = useForm({
         name: vehicle.name,
         type: vehicle.type || "",
+        manufacture: vehicle.manufacture || "",
         capacity: vehicle.capacity || "",
         status: vehicle.status || "",
         price_per_day: vehicle.price_per_day || "",
@@ -48,6 +49,26 @@ const UpdateForm = ({ vehicle, closeModal, open }) => {
                                 />
                                 <InputError
                                     message={errors.name}
+                                    className="mt-2"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <InputLabel className="block mb-2">
+                                Manufacture
+                            </InputLabel>
+                            <div className="flex flex-col">
+                                <TextInput
+                                    type="text"
+                                    name="manufacture"
+                                    value={data.manufacture}
+                                    onChange={(e) =>
+                                        setData("manufacture", e.target.value)
+                                    }
+                                    className="w-full p-2 border border-gray-300 rounded"
+                                />
+                                <InputError
+                                    message={errors.manufacture}
                                     className="mt-2"
                                 />
                             </div>

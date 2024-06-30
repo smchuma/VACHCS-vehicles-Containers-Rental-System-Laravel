@@ -8,9 +8,9 @@ import {
     Typography,
 } from "@material-tailwind/react";
 
-const VehicleCard = ({ image, name, status, capacity, pricePerDay }) => {
+const VehicleCard = ({ vehicle }) => {
     const getStatusColor = () => {
-        switch (status.toLowerCase()) {
+        switch (vehicle.status.toLowerCase()) {
             case "available":
                 return "bg-green-500";
             case "rented":
@@ -26,18 +26,38 @@ const VehicleCard = ({ image, name, status, capacity, pricePerDay }) => {
         <Card className="mt-6 max-w-s border-2 border-gray-200 ">
             <CardHeader className="relative h-56 !shadow-[0px] border-b-2 border-gray-200 bg-gray-100 !m-0 ">
                 <img
-                    src={image ? `/storage/${image}` : "images/default.png"}
+                    src={
+                        vehicle.image
+                            ? `/storage/${vehicle.image}`
+                            : "images/default.png"
+                    }
                     alt="card-image"
                     className="p-6"
                 />
             </CardHeader>
             <CardBody className="!px-3 ">
+                <div className="flex gap-5 mb-4 ">
+                    <Typography
+                        variant="h6"
+                        color="blue-gray"
+                        className="mt-[-15px] text-gray-700 text-sm  "
+                    >
+                        {vehicle.Vehicle_No}
+                    </Typography>
+                    <Typography
+                        variant="h6"
+                        color="blue-gray"
+                        className="mt-[-15px] text-gray-500 text-sm  "
+                    >
+                        {vehicle.manufacture}
+                    </Typography>
+                </div>
                 <Typography
                     variant="h6"
                     color="blue-gray"
                     className="mt-[-15px]  "
                 >
-                    {name}
+                    {vehicle.name}
                 </Typography>
             </CardBody>
             <CardFooter className=" mt-[-15px] !px-3 pt-0">
@@ -45,13 +65,15 @@ const VehicleCard = ({ image, name, status, capacity, pricePerDay }) => {
                     <div
                         className={` ${getStatusColor()} text-white px-2 py-1 rounded-lg`}
                     >
-                        <span className="text-xs">{status}</span>
+                        <span className="text-xs">{vehicle.status}</span>
                     </div>
                     <div className="text-sm flex items-center text-gray-500 gap-1">
                         <BsPeopleFill />
-                        {capacity}
+                        {vehicle.capacity}
                     </div>
-                    <div className="text-sm font-bold">TSH {pricePerDay}/D</div>
+                    <div className="text-sm font-bold">
+                        TSH {vehicle.pricePerDay}/D
+                    </div>
                 </div>
             </CardFooter>
         </Card>

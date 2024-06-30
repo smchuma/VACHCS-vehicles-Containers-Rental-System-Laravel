@@ -13,6 +13,7 @@ class Vehicle extends Model
         'Vehicle_No',
         'name',
         'type',
+        'manufacture',
         'capacity',
         'price_per_day',
         'status',

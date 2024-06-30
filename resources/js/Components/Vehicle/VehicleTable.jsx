@@ -29,7 +29,7 @@ const VehicleTable = ({ vehicle, onRowClick, onDeleteClick, onImageClick }) => {
     };
 
     return (
-        <div className="flex flex-col items-end">
+        <div className="flex flex-col">
             <div className="flex justify-end items-center mb-4 px-2 border border-gray-500 rounded-lg w-80">
                 <CiSearch size={25} />
                 <TextInput
@@ -47,6 +47,7 @@ const VehicleTable = ({ vehicle, onRowClick, onDeleteClick, onImageClick }) => {
                         <th>VIN</th>
                         <th>Vehicle Name</th>
                         <th>Manufacture</th>
+                        <th>Type</th>
                         <th>Capacity</th>
                         <th>Status</th>
                         <th>Price Per Day</th>
@@ -72,6 +73,9 @@ const VehicleTable = ({ vehicle, onRowClick, onDeleteClick, onImageClick }) => {
                             </td>
                             <td className="text-center border-r-2 border-gray-200">
                                 {vehicle.name}
+                            </td>
+                            <td className="text-center border-r-2 border-gray-200">
+                                {vehicle.manufacture}
                             </td>
                             <td className="text-center border-r-2 border-gray-200">
                                 {vehicle.type}
@@ -105,6 +109,9 @@ const VehicleTable = ({ vehicle, onRowClick, onDeleteClick, onImageClick }) => {
                     ))}
                 </tbody>
             </table>
+            {filteredData.length == 0 && (
+                <h1 className="text-center my-5">No Vehicle Found</h1>
+            )}
             <div className="flex justify-between  items-center gap-x-5 mt-5 mb-32">
                 <button
                     onClick={() => handlePageChange(page - 1)}
