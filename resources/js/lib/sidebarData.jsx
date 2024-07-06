@@ -75,9 +75,4 @@ export const EmpSidebarData = [
         icon: <TbReportSearch className="text-black" size={25} />,
         label: "Reports",
     },
-    {
-        href: "",
-        icon: <IoIosSettings className="text-black" size={25} />,
-        label: "Settings",
-    },
 ];

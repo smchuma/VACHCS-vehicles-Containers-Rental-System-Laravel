@@ -63,8 +63,10 @@ Route::group(['prefix' => 'admin'], function() {
         Route::resource('/category', CategoryController::class);
 
         Route::get('/employees', [EmployeeController::class, 'index'] )->name('employee');
+        Route::post('/employees', [EmployeeController::class, 'store'] )->name('employee.store');
+        Route::delete('/employees', [EmployeeController::class, 'destroy'] )->name('employee.destroy');
 
-        // Route::get('/rentals', [RentalController::class, 'index'] )->name('rental');
+
         Route::get('/rentals', [RentalOrdersController::class, 'rental'])->name('rental.index');
         Route::put('/rentals/{id}', [RentalOrdersController::class, 'update'])->name('rental.update');
 
