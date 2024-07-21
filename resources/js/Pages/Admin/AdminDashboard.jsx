@@ -4,8 +4,7 @@ import UpcomingRentals from "@/Components/Dashboard/UpcomingRentals";
 import RentalStatusCards from "@/Components/Rentals/RentalStatusCards";
 import AdminAuthenticatedLayout from "@/Layouts/AdminAuthenticatedLayout";
 
-const AdminDashboard = ({ rentals }) => {
-    console.log(rentals);
+const AdminDashboard = ({ rentals, vehicles }) => {
     const statusCounts = rentals.reduce(
         (counts, rental) => {
             if (rental.status === "Pending") {
@@ -20,6 +19,8 @@ const AdminDashboard = ({ rentals }) => {
         { pending: 0, approved: 0, rejected: 0 }
     );
 
+    console.log(vehicles);
+
     return (
         <AdminAuthenticatedLayout>
             <main>
@@ -30,7 +31,7 @@ const AdminDashboard = ({ rentals }) => {
                 />
                 <div className="flex flex-col md:flex-row mt-5 ">
                     <div className="flex-1 p-2">
-                        <AvailableVehiclesGraph />
+                        <AvailableVehiclesGraph vehicles={vehicles} />
                     </div>
                     <div className="flex-1 p-2">
                         <RentalLineGraph rentals={rentals} />

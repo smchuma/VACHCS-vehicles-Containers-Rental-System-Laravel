@@ -10,7 +10,7 @@ const Navbar = ({ user, header }) => {
         url.split("/").pop().slice(1);
 
     return (
-        <nav className="flex py-4 justify-between sticky shadow-md  z-99 bg-gray-100 top-0  lg:px-8 ">
+        <nav className="flex py-4 justify-between sticky shadow-md  z-[100] bg-gray-100 top-0  lg:px-8 ">
             <h1 className="text-xl">
                 {category === "Vehicles" ? "Vehicle and Containers" : category}
             </h1>

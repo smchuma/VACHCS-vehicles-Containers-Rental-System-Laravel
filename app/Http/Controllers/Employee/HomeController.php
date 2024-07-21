@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RentalApprovalRequest;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Rental;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 
@@ -68,7 +70,7 @@ class HomeController extends Controller
 
 
         // Create the rental
-         Rental::create([
+        $rental = Rental::create([
             'rental_order_number' => $request->rental_order_number,
             'customer_id' => $request->customer_id,
             'vehicle_id' => $request->vehicle_id,
@@ -76,6 +78,9 @@ class HomeController extends Controller
             'end_date' => $request->end_date,
             'total_price' => $request->total_price,
         ]);
+
+        Mail::to('admin@vaches.com')->send(new RentalApprovalRequest($rental));
+
 
         $vehicle = Vehicle::findOrFail($request->vehicle_id);
         $vehicle->status = 'Rented';

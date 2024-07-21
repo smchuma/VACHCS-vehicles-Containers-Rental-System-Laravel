@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RentalApprovalNotification;
 use App\Models\Rental;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class RentalOrdersController extends Controller
@@ -100,6 +102,9 @@ public function update(Request $request, $id)
 
     $rental->status = $request->input('status');
     $rental->save();
+    // Mail::to($rental->user->email)->send(new RentalApprovalNotification($rental));
+    Mail::to('samora@vaches.com')->send(new RentalApprovalNotification($rental));
+
     return redirect()->back()->with('success', 'Rental status updated successfully.');
 
 }
