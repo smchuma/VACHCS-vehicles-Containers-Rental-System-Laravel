@@ -6,100 +6,106 @@ import {
 } from "@material-tailwind/react";
 import Chart from "react-apexcharts";
 
-// If you're using Next.js please use the dynamic import for react-apexcharts and remove the import from the top for the react-apexcharts
-// import dynamic from "next/dynamic";
-// const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+export default function RentalLineGraph({ rentals }) {
+    const approvedRentals = rentals.filter(
+        (rental) => rental.status == "Approved"
+    );
 
-const chartConfig = {
-    type: "line",
-    height: 240,
-    series: [
-        {
-            name: "Sales",
-            data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-        },
-    ],
-    options: {
-        chart: {
-            toolbar: {
-                show: false,
+    const monthlyEarnings = approvedRentals.reduce((acc, rental) => {
+        const month = new Date(rental.created_at).toLocaleString("default", {
+            month: "short",
+            year: "numeric",
+        });
+        if (!acc[month]) {
+            acc[month] = 0;
+        }
+        acc[month] += rental.total_price;
+        return acc;
+    }, {});
+
+    // Convert aggregated data into arrays
+    const categories = Object.keys(monthlyEarnings);
+    const data = Object.values(monthlyEarnings);
+
+    const chartConfig = {
+        type: "line",
+        height: 240,
+        series: [
+            {
+                name: "Earnings",
+                data: data,
             },
-        },
-        title: {
-            show: "",
-        },
-        dataLabels: {
-            enabled: false,
-        },
-        colors: ["#020617"],
-        stroke: {
-            lineCap: "round",
-            curve: "smooth",
-        },
-        markers: {
-            size: 0,
-        },
-        xaxis: {
-            axisTicks: {
-                show: false,
-            },
-            axisBorder: {
-                show: false,
-            },
-            labels: {
-                style: {
-                    colors: "#616161",
-                    fontSize: "12px",
-                    fontFamily: "inherit",
-                    fontWeight: 400,
+        ],
+        options: {
+            chart: {
+                toolbar: {
+                    show: false,
                 },
             },
-            categories: [
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec",
-            ],
-        },
-        yaxis: {
-            labels: {
-                style: {
-                    colors: "#616161",
-                    fontSize: "12px",
-                    fontFamily: "inherit",
-                    fontWeight: 400,
-                },
+            title: {
+                show: false,
             },
-        },
-        grid: {
-            show: true,
-            borderColor: "#dddddd",
-            strokeDashArray: 5,
+            dataLabels: {
+                enabled: false,
+            },
+            colors: ["#020617"],
+            stroke: {
+                lineCap: "round",
+                curve: "smooth",
+            },
+            markers: {
+                size: 0,
+            },
             xaxis: {
-                lines: {
-                    show: true,
+                axisTicks: {
+                    show: false,
+                },
+                axisBorder: {
+                    show: false,
+                },
+                labels: {
+                    style: {
+                        colors: "#616161",
+                        fontSize: "12px",
+                        fontFamily: "inherit",
+                        fontWeight: 400,
+                    },
+                },
+                categories: categories,
+            },
+            yaxis: {
+                labels: {
+                    style: {
+                        colors: "#616161",
+                        fontSize: "12px",
+                        fontFamily: "inherit",
+                        fontWeight: 400,
+                    },
                 },
             },
-            padding: {
-                top: 5,
-                right: 20,
+            grid: {
+                show: true,
+                borderColor: "#dddddd",
+                strokeDashArray: 5,
+                xaxis: {
+                    lines: {
+                        show: true,
+                    },
+                },
+                padding: {
+                    top: 5,
+                    right: 20,
+                },
+            },
+            fill: {
+                opacity: 0.8,
+            },
+            tooltip: {
+                theme: "dark",
             },
         },
-        fill: {
-            opacity: 0.8,
-        },
-        tooltip: {
-            theme: "dark",
-        },
-    },
-};
+    };
 
-export default function RentalLineGraph() {
     return (
         <Card>
             <CardHeader
@@ -110,7 +116,7 @@ export default function RentalLineGraph() {
             >
                 <div>
                     <Typography variant="h6" color="blue-gray">
-                        Line Chart
+                        Total Earning per month
                     </Typography>
                 </div>
             </CardHeader>

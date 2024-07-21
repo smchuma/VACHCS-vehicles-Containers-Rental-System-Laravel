@@ -13,10 +13,13 @@ class AdminDashboard extends Controller
     //
     public function index(){
         $rentals = Rental::with(['customer', 'vehicle'])->get();
+        $vehicles = Rental::get();
 
         return Inertia::render("Admin/AdminDashboard", [
-            "rentals" => $rentals
+            "rentals" => $rentals,
+            "vehicles" => $vehicles
         ]);
+
     }
 
     public function logout() {

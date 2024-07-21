@@ -40,18 +40,18 @@ export const adminSidebarData = [
         icon: <FaUserAlt size={20} />,
     },
 
-    {
-        id: 6,
-        name: "Customer Management",
-        href: "/admin/customers",
-        icon: <FaUserCheck size={20} />,
-    },
-    {
-        id: 7,
-        name: "Report Management",
-        href: "/admin/reports",
-        icon: <HiDocumentReport size={20} />,
-    },
+    // {
+    //     id: 6,
+    //     name: "Customer Management",
+    //     href: "/admin/customers",
+    //     icon: <FaUserCheck size={20} />,
+    // },
+    // {
+    //     id: 7,
+    //     name: "Report Management",
+    //     href: "/admin/reports",
+    //     icon: <HiDocumentReport size={20} />,
+    // },
 ];
 
 export const EmpSidebarData = [

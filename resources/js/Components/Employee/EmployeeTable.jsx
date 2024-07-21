@@ -5,7 +5,7 @@ import { GiPencil } from "react-icons/gi";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import TextInput from "../TextInput";
 
-const EmployeeTable = ({ users, onRowClick, onDeleteClick, onImageClick }) => {
+const EmployeeTable = ({ users, onRowClick, onDeleteClick }) => {
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(users.current_page);
     const [filteredData, setFilteredData] = useState(users.data);

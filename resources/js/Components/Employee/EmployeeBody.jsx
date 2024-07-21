@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm, usePage } from "@inertiajs/react";
 import Swal from "sweetalert2";
 import EmployeeTable from "./EmployeeTable";
+import UpdateEmployee from "./UpdateEmployee";
 
 const EmployeeBody = () => {
     const { users } = usePage().props;
@@ -19,7 +20,7 @@ const EmployeeBody = () => {
     };
 
     const handleRowClick = (user) => {
-        setSelectedUser(employee);
+        setSelectedUser(user);
         setOpen(true);
     };
 
@@ -53,14 +54,14 @@ const EmployeeBody = () => {
                     onDeleteClick={handleDeleteClick}
                 />
             )}
-            {/* {selectedVehicle && (
+            {selectedUser && (
                 <UpdateEmployee
-                    vehicle={selectedVehicle}
+                    user={selectedUser}
                     openModal={openModal}
                     closeModal={closeModal}
                     open={open}
                 />
-            )} */}
+            )}
         </div>
     );
 };

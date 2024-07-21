@@ -42,6 +42,9 @@ Route::get('/reports', [ReportController::class, 'empReport'] );
 
 });
 
+Route::get('/report/{status}', [ReportController::class, 'getStatus'])->name("report");
+
+
 
 // admin side
 
@@ -64,11 +67,13 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::get('/employees', [EmployeeController::class, 'index'] )->name('employee');
         Route::post('/employees', [EmployeeController::class, 'store'] )->name('employee.store');
-        Route::delete('/employees', [EmployeeController::class, 'destroy'] )->name('employee.destroy');
+        Route::delete('/employees/{id}', [EmployeeController::class, 'destroy'] )->name('employee.destroy');
+        Route::put('/employees/{id}', [EmployeeController::class, 'update'] )->name('employee.update');
 
 
         Route::get('/rentals', [RentalOrdersController::class, 'rental'])->name('rental.index');
         Route::put('/rentals/{id}', [RentalOrdersController::class, 'update'])->name('rental.update');
+
 
 
 

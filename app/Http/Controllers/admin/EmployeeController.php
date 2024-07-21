@@ -54,9 +54,27 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
+
         $user = User::findOrFail($id);
 
         $user->delete();
         return redirect()->back()->with('success', 'User deleted successfully.');
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+
+        ]);
+
+        $user->name = $request->input('name');
+
+        $user->save();
+        return redirect()->back()->with('success', 'User updated successfully.');
+
     }
 }
