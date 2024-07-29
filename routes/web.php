@@ -28,6 +28,8 @@ Route::post('/rental', [HomeController::class, 'storeRental'])->name('rentals.st
 Route::get('/rentals-orders', [RentalOrdersController::class, 'index'])->name('rental-orders.index');
 Route::delete('/rentals-orders/{id}', [RentalOrdersController::class, 'destroy'])->name('rental-orders.destroy');
 Route::get('/rentals/{status}', [RentalOrdersController::class, 'getRentalsByStatus']);
+Route::post('/rental-orders/{id}/send-receipt', [RentalOrdersController::class, 'sendReceipt'])->name('rental-orders.send-receipt');
+
 
 
 Route::get('/customers', [CustomerController::class, 'EmpCustomers'] )->name('EmpCustomers');

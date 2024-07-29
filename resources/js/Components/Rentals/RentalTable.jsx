@@ -1,7 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import { FaEnvelope, FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const RentalTable = ({ rentals, role, onRowClick }) => {
@@ -9,7 +9,7 @@ const RentalTable = ({ rentals, role, onRowClick }) => {
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(rentals.current_page);
 
-    const { delete: destroy } = useForm();
+    const { post, delete: destroy } = useForm();
 
     const handleDelete = (rental) => {
         Swal.fire({
@@ -68,6 +68,18 @@ const RentalTable = ({ rentals, role, onRowClick }) => {
             default:
                 return "bg-gray-500 text-white px-3 py-1 rounded";
         }
+    };
+
+    const handleSendReceipt = (rental) => {
+        post(route("rental-orders.send-receipt", rental.id), {
+            onSuccess: () => {
+                Swal.fire(
+                    "Sent!",
+                    "The receipt has been sent to the customer's email.",
+                    "success"
+                );
+            },
+        });
     };
 
     return (
@@ -156,6 +168,17 @@ const RentalTable = ({ rentals, role, onRowClick }) => {
                                     >
                                         <FaTrashAlt
                                             className="text-red-500"
+                                            size={12}
+                                        />
+                                    </button>
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleSendReceipt(rental);
+                                        }}
+                                    >
+                                        <FaEnvelope
+                                            className="text-blue-500 ml-2"
                                             size={12}
                                         />
                                     </button>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Mail\RentalApprovalNotification;
+use App\Mail\RentalReceipt;
 use App\Models\Rental;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
@@ -108,6 +109,20 @@ public function update(Request $request, $id)
     return redirect()->back()->with('success', 'Rental status updated successfully.');
 
 }
+
+public function sendReceipt($id)
+    {
+        $rental = Rental::with('vehicle', 'customer')->find($id);
+
+        if (!$rental) {
+            return response()->json(['message' => 'Rental order not found'], 404);
+        }
+
+        // Send the receipt email
+        Mail::to("laurentsamora6@gmail.com")->send(new RentalReceipt($rental));
+
+        return redirect()->back()->with('success', 'Receipt sent successfully.');
+    }
 
 
 }
