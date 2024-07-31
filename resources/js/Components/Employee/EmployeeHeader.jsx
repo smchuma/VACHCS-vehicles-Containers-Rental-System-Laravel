@@ -147,7 +147,7 @@ const EmployeeHeader = () => {
                                             Admin
                                         </option>
                                         <option value="0" className="text-sm">
-                                            Agent
+                                            Officer
                                         </option>
                                     </select>
                                     <InputError

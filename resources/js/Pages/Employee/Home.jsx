@@ -3,9 +3,24 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import { useEffect, useState } from "react";
 
-export default function Home({ auth, vehicles, categories }) {
-    const { data } = vehicles;
+export default function Home({ auth, vehicles }) {
+    const [search, setSearch] = useState("");
+    const [filteredData, setFilteredData] = useState(vehicles.data);
+
+    useEffect(() => {
+        setFilteredData(
+            vehicles.data.filter((v) =>
+                v.name.toLowerCase().includes(search.toLowerCase())
+            )
+        );
+    }, [search, vehicles.data]);
+
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -22,10 +37,19 @@ export default function Home({ auth, vehicles, categories }) {
                         <TextInput
                             className="w-72 rounded-xl"
                             placeholder="Search here."
+                            value={search}
+                            onChange={handleSearch}
                         />
                         <PrimaryButton>Search</PrimaryButton>
                     </div>
-                    <VehicleList vehicles={data} />
+                    {filteredData.length === 0 && (
+                        <div className="flex justify-center flex-col items-center text-gray-400 text-center my-20 ">
+                            <p className="text-xl font-bold mt-3  ">
+                                No Vehicles Found
+                            </p>
+                        </div>
+                    )}
+                    <VehicleList vehicles={filteredData} />
                 </div>
             </div>
         </AuthenticatedLayout>

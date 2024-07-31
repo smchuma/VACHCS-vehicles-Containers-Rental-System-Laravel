@@ -57,7 +57,7 @@ const EmployeeTable = ({ users, onRowClick, onDeleteClick }) => {
                                 {user.email}
                             </td>
                             <td className="text-center border-r-2 border-gray-200">
-                                {user.role === 1 ? "Admin" : "Agent"}
+                                {user.role === 1 ? "Admin" : "Officer"}
                             </td>
 
                             <td className="text-center border-r-2 border-gray-200 ">

@@ -3,11 +3,27 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import Dropdown from "../Dropdown";
 import { router } from "@inertiajs/react";
+import Swal from "sweetalert2";
 
 const CategoryItem = ({ category }) => {
-    const handleDelete = (id) => {
-        console.log("ss");
-        router.delete(`/admin/category/${id}`);
+    const handleDelete = (category) => {
+        Swal.fire({
+            title: `Category: ${category.name}`,
+            text: `Are you sure you want to delete this customer?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, keep it",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(`/admin/category/${category.id}`);
+                Swal.fire(
+                    "Deleted!",
+                    "The customer has been deleted.",
+                    "success"
+                );
+            }
+        });
     };
 
     return (
@@ -26,17 +42,17 @@ const CategoryItem = ({ category }) => {
                     </Dropdown.Trigger>
 
                     <Dropdown.Content>
-                        <Dropdown.Link>
+                        {/* <Dropdown.Link>
                             <div className="flex gap-2 items-center text-green-600">
                                 <FaEdit />
                                 Edit
                             </div>
-                        </Dropdown.Link>
+                        </Dropdown.Link> */}
                         <Dropdown.Link method="post" as="button">
                             <div
                                 className="flex gap-2 text-red-500"
                                 onClick={() => {
-                                    handleDelete(category.id);
+                                    handleDelete(category);
                                 }}
                             >
                                 <FaTrashAlt />
