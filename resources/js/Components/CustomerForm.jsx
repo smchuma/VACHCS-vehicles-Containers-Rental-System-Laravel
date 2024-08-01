@@ -45,11 +45,19 @@ const CustomerForm = ({ vehicle }) => {
         if (data.start_date && data.end_date) {
             const startDate = new Date(data.start_date);
             const endDate = new Date(data.end_date);
-            const calculatedDays = differenceInDays(endDate, startDate) + 1; // Include the start date
-            const calculatedTotalPrice = calculatedDays * vehicle.price_per_day;
-            setDays(calculatedDays);
-            setTotalPrice(calculatedTotalPrice);
-            setData("total_price", calculatedTotalPrice);
+            if (endDate >= startDate) {
+                const calculatedDays = differenceInDays(endDate, startDate) + 1; // Include the start date
+                const calculatedTotalPrice =
+                    calculatedDays * vehicle.price_per_day;
+                setDays(calculatedDays);
+                setTotalPrice(calculatedTotalPrice);
+                setData("total_price", calculatedTotalPrice);
+            } else {
+                setDays(0);
+                setTotalPrice(0);
+                setData("total_price", 0);
+                toast.error("End date cannot be before start date");
+            }
         } else {
             setDays(0);
             setTotalPrice(0);
@@ -126,7 +134,7 @@ const CustomerForm = ({ vehicle }) => {
                         <TextInput
                             type="date"
                             className="w-full border rounded p-2"
-                            min={today}
+                            min={data.start_date || today}
                             value={data.end_date}
                             onChange={(e) =>
                                 setData("end_date", e.target.value)

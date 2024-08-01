@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
@@ -63,18 +64,17 @@ class EmployeeController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $user = User::findOrFail($id);
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-
-        ]);
 
         $user->name = $request->input('name');
 
-        $user->save();
-        return redirect()->back()->with('success', 'User updated successfully.');
+        // Check if a new password is provided
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
 
+        $user->save();
+
+        return redirect()->back()->with('success', 'User updated successfully.');
     }
 }

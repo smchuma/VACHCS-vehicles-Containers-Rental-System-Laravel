@@ -9,6 +9,7 @@ const UpdateEmployee = ({ user, closeModal, open }) => {
     const { data, setData, put, errors } = useForm({
         name: user.name,
         email: user.email || "",
+        password: "",
     });
 
     const handleSubmit = (e) => {
@@ -61,6 +62,23 @@ const UpdateEmployee = ({ user, closeModal, open }) => {
                                     className="w-full p-2 border border-gray-300 rounded"
                                 /> */}
                                 <h1 className="mt-3">{data.email}</h1>
+                            </div>
+                        </div>
+                        <div>
+                            <InputLabel className="block mb-2">
+                                Password
+                            </InputLabel>
+                            <div className="flex flex-col">
+                                <TextInput
+                                    type="password"
+                                    name="manufacture"
+                                    value={data.password}
+                                    placeholder="Update Password"
+                                    onChange={(e) =>
+                                        setData("password", e.target.value)
+                                    }
+                                    className="w-full p-2 border border-gray-300 rounded"
+                                />
                             </div>
                         </div>
                     </div>
