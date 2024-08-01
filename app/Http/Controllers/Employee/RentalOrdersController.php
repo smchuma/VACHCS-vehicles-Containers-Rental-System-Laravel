@@ -103,26 +103,30 @@ public function update(Request $request, $id)
 
     $rental->status = $request->input('status');
     $rental->save();
-    // Mail::to($rental->user->email)->send(new RentalApprovalNotification($rental));
-    Mail::to('samora@vaches.com')->send(new RentalApprovalNotification($rental));
 
-    return redirect()->back()->with('success', 'Rental status updated successfully.');
+    $message = 'Rental updated successfully';
+
+    if ($rental->status === 'Approved') {
+        Mail::to($rental->customer->email)->send(new RentalReceipt($rental));
+        $message = 'Rental approved and receipt sent';
+    } elseif ($rental->status === 'Rejected') {
+        $message = 'Rental rejected';
+    } elseif ($rental->status === 'Pending') {
+        $message = 'Rental pending';
+    }
+
+    return redirect()->back()->with('success', $message);
 
 }
 
-public function sendReceipt($id)
-    {
-        $rental = Rental::with('vehicle', 'customer')->find($id);
 
-        if (!$rental) {
-            return response()->json(['message' => 'Rental order not found'], 404);
-        }
+public function printReceipt($id)
+{
+    $rental = Rental::findOrFail($id);
+    return view('rental-approval-request', compact('rental'));
+}
 
-        // Send the receipt email
-        Mail::to("laurentsamora6@gmail.com")->send(new RentalReceipt($rental));
 
-        return redirect()->back()->with('success', 'Receipt sent successfully.');
-    }
 
 
 }

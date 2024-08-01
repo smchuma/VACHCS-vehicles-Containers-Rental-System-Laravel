@@ -1,6 +1,8 @@
 @component('mail::message')
 # Rental Receipt
 
+<p>Your rental request for the vehicle: {{ $rental->vehicle->name }} has been approved.</p>
+
 Thank you for renting with us. Here are the details of your rental:
 
 - **Rental Number**: {{ $rental->rental_order_number }}

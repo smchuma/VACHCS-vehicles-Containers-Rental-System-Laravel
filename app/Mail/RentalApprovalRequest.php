@@ -33,7 +33,7 @@ class RentalApprovalRequest extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Rental Approval Request',
+            subject: 'Rental Receipt',
         );
     }
 
@@ -42,8 +42,13 @@ class RentalApprovalRequest extends Mailable
      */
     public function content(): Content
     {
+
+
         return new Content(
-            view: 'rental-approval-request',
+            markdown: 'rental-approval-request',
+            with: [
+                'rental' => $this->rental,
+            ],
         );
     }
 

@@ -1,15 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Rental Approval Notification</title>
-</head>
-<body>
-    <h1>Rental Request Approved</h1>
-    <p>Your rental request for the vehicle {{ $rental->vehicle_id }} has been approved.</p>
-    <p>Rental Order Number: {{ $rental->rental_order_number }}</p>
-    <p>Start Date: {{ $rental->start_date }}</p>
-    <p>End Date: {{ $rental->end_date }}</p>
-    <p>Total Price: {{ $rental->total_price }}</p>
-    <p>Thank you for using our service!</p>
-</body>
-</html>
+@component('mail::message')
+# Rental Receipt
+
+<p>Your rental request for the vehicle: {{ $rental->vehicle->name }} has been approved.</p>
+
+Thank you for renting with us. Here are the details of your rental:
+
+- **Rental Number**: {{ $rental->rental_order_number }}
+- **Vehicle Name**: {{ $rental->vehicle->name }}
+- **Customer Name**: {{ $rental->customer->name }}
+- **Start Date**: {{ $rental->start_date }}
+- **End Date**: {{ $rental->end_date }}
+- **Total Price**: {{ $rental->total_price }}
+
+Please make the payment to the following bank details:
+Use:CRDB to pay the bill
+0152476335300
+
+
+Thanks,<br>
+{{ config('app.name') }}
+@endcomponent

@@ -1,8 +1,10 @@
 import { useForm, usePage } from "@inertiajs/react";
+import jsPDF from "jspdf";
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { FaEnvelope, FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import { FaEnvelope, FaPencilAlt, FaPrint, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import "jspdf-autotable"; // Import jsPDF autotable plugin
 
 const RentalTable = ({ rentals, role, onRowClick }) => {
     const [filteredData, setFilteredData] = useState(rentals.data);
@@ -69,17 +71,69 @@ const RentalTable = ({ rentals, role, onRowClick }) => {
                 return "bg-gray-500 text-white px-3 py-1 rounded";
         }
     };
+    const handleDownloadReceipt = (rental) => {
+        const doc = new jsPDF();
 
-    const handleSendReceipt = (rental) => {
-        post(route("rental-orders.send-receipt", rental.id), {
-            onSuccess: () => {
-                Swal.fire(
-                    "Sent!",
-                    "The receipt has been sent to the customer's email.",
-                    "success"
-                );
-            },
+        doc.setFontSize(18);
+        doc.setTextColor(40);
+        doc.text("Rental Receipt", 105, 40, { align: "center" });
+
+        // Subtitle
+        doc.setFontSize(12);
+        doc.setTextColor(60);
+        doc.text(
+            `Your rental request for the vehicle: ${rental.vehicle.name} has been approved.`,
+            105,
+            50,
+            { align: "center" }
+        );
+        doc.text(
+            "Thank you for renting with us. Here are the details of your rental:",
+            105,
+            60,
+            { align: "center" }
+        );
+
+        // Table
+        doc.autoTable({
+            startY: 70,
+            head: [["Field", "Details"]],
+            body: [
+                ["Rental Number", rental.rental_order_number],
+                ["Vehicle Name", rental.vehicle.name],
+                ["Customer Name", rental.customer.name],
+                ["Start Date", rental.start_date],
+                ["End Date", rental.end_date],
+                ["Total Price", rental.total_price],
+            ],
+            theme: "striped",
+            headStyles: { fillColor: [41, 128, 185] },
+            styles: { fontSize: 12 },
         });
+
+        // Bank Details
+        const finalY = doc.autoTable.previous.finalY; // Get the Y position of the last table row
+        doc.setFontSize(12);
+        doc.setTextColor(40);
+        doc.text(
+            "Please make the payment to the following bank details:",
+            14,
+            finalY + 20
+        );
+        doc.text("Use: 0152476335300 CRDB to pay the bill", 14, finalY + 30);
+
+        // Footer
+        doc.setFontSize(12);
+        doc.setTextColor(40);
+        doc.text("Thanks,", 105, finalY + 50, {
+            align: "center",
+        });
+        doc.text("VHCS", 105, finalY + 60, {
+            align: "center",
+        });
+
+        // Save the PDF
+        doc.save(`receipt_${rental.rental_order_number}.pdf`);
     };
 
     return (
@@ -171,17 +225,19 @@ const RentalTable = ({ rentals, role, onRowClick }) => {
                                             size={12}
                                         />
                                     </button>
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            handleSendReceipt(rental);
-                                        }}
-                                    >
-                                        <FaEnvelope
-                                            className="text-blue-500 ml-2"
-                                            size={12}
-                                        />
-                                    </button>
+                                    {rental.status === "Approved" && (
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleDownloadReceipt(rental);
+                                            }}
+                                        >
+                                            <FaPrint
+                                                className="text-blue-500 mx-3"
+                                                size={12}
+                                            />
+                                        </button>
+                                    )}
                                 </td>
                             </tr>
                         ))}
