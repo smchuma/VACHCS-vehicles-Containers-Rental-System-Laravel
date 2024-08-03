@@ -12,6 +12,7 @@ use App\Http\Controllers\Employee\HomeController;
 use App\Http\Controllers\Employee\RentalOrdersController;
 use App\Http\Controllers\Employee\VehicleRentalController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TrackingController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -82,7 +83,7 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::get('/customers', [CustomerController::class, 'index'] )->name('customer');
 
-        Route::get('/reports', [ReportController::class, 'index'] )->name('report');
+        Route::get('/tracking', [TrackingController::class, 'index'] )->name('tracking');
 
         Route::post('/logout', [AdminDashboard::class, 'logout'])->name('admin.logout');
 

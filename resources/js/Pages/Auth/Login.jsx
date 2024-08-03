@@ -31,7 +31,7 @@ export default function Login({ status, canResetPassword }) {
             <Head title="Log in" />
 
             <h1 className="text-center my-5 font-semibold text-xl text-[#0a0e11] ">
-                Employee Panel
+                Login
             </h1>
 
             {status && (
@@ -101,6 +101,14 @@ export default function Login({ status, canResetPassword }) {
                     <PrimaryButton className="w-full" disabled={processing}>
                         Log in
                     </PrimaryButton>
+                </div>
+                <div className="flex justify-center mt-4">
+                    <Link
+                        href={route("register")}
+                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                        Don't have an account, Register
+                    </Link>
                 </div>
             </form>
         </GuestLayout>

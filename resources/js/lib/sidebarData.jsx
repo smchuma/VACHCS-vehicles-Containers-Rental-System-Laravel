@@ -1,7 +1,11 @@
 import { BiCategory } from "react-icons/bi";
 import { FaUserAlt } from "react-icons/fa";
 import { FaTruck, FaUserCheck } from "react-icons/fa6";
-import { MdCarRental, MdDashboardCustomize } from "react-icons/md";
+import {
+    MdCarRental,
+    MdDashboardCustomize,
+    MdSpatialTracking,
+} from "react-icons/md";
 import { HiDocumentReport } from "react-icons/hi";
 import { FaCarAlt, FaUser } from "react-icons/fa";
 import { TbReportSearch } from "react-icons/tb";
@@ -40,12 +44,12 @@ export const adminSidebarData = [
         icon: <FaUserAlt size={20} />,
     },
 
-    // {
-    //     id: 6,
-    //     name: "Customer Management",
-    //     href: "/admin/customers",
-    //     icon: <FaUserCheck size={20} />,
-    // },
+    {
+        id: 6,
+        name: "Tracking",
+        href: "/admin/tracking",
+        icon: <MdSpatialTracking size={20} />,
+    },
     // {
     //     id: 7,
     //     name: "Report Management",
