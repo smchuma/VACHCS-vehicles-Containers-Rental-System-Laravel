@@ -1,58 +1,87 @@
-import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import React, { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
-import AdminAuthenticatedLayout from "@/Layouts/AdminAuthenticatedLayout";
-import PrimaryButton from "@/Components/PrimaryButton";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import MapComp from "@/Components/MapPage/MapComp";
-import TextInput from "@/Components/TextInput";
 
 const center = {
     lat: -6.7924,
-    lng: 39.2083, // Centered on Dar es Salaam for initial load
+    lng: 39.2083,
 };
 
-const vehicles = [
-    { id: 1, name: "Toyota", lat: -6.7924, lng: 39.2083 }, // Dar es Salaam
-    { id: 2, name: "Honda", lat: -3.3869, lng: 36.6822 }, // Arusha
-    { id: 3, name: "Nissan", lat: -10.3119, lng: 40.1793 }, // Mtwara
-    { id: 4, name: "Suzuki", lat: -2.5164, lng: 32.9176 }, // Mwanza
+const TANZANIA_REGIONS = [
+    { latMin: -3.5, latMax: -3.0, lngMin: 36.5, lngMax: 37.0 }, // Arusha
+    { latMin: -6.25, latMax: -5.75, lngMin: 35.5, lngMax: 36.0 }, // Dodoma
+    { latMin: -9.0, latMax: -8.5, lngMin: 33.4, lngMax: 34.0 }, // Mbeya
+    { latMin: -7.0, latMax: -6.5, lngMin: 37.5, lngMax: 38.0 }, // Morogoro
+    { latMin: -6.95, latMax: -6.85, lngMin: 39.23, lngMax: 39.27 }, // Temeke
+    { latMin: -6.78, latMax: -6.72, lngMin: 39.22, lngMax: 39.25 }, // Sinza
 ];
 
-const Tracking = () => {
+const generateRandomCoordinates = () => {
+    const region =
+        TANZANIA_REGIONS[Math.floor(Math.random() * TANZANIA_REGIONS.length)];
+    const lat = Math.random() * (region.latMax - region.latMin) + region.latMin;
+    const lng = Math.random() * (region.lngMax - region.lngMin) + region.lngMin;
+    return { lat, lng };
+};
+
+const Tracking = ({ auth, rentals }) => {
     const [search, setSearch] = useState("");
     const [selectedVehicle, setSelectedVehicle] = useState(null);
+    const [vehicles, setVehicles] = useState([]);
 
-    const handleSearch = () => {
-        const vehicle = vehicles.find(
-            (v) => v.name.toLowerCase() == search.toLowerCase()
-        );
+    useEffect(() => {
+        // Generate random coordinates for each vehicle
+        const vehiclesWithCoordinates = rentals.data.map((rental) => ({
+            id: rental.id,
+            name: rental.vehicle.name,
+            number: rental.vehicle.Vehicle_No,
+            image: rental.vehicle.image,
+            ...generateRandomCoordinates(),
+        }));
+        setVehicles(vehiclesWithCoordinates);
+    }, [rentals]);
+
+    const handleVehicleClick = (vehicle) => {
         setSelectedVehicle(vehicle);
     };
 
     return (
-        <AdminAuthenticatedLayout>
-            <main>
-                <div className="flex justify-end">
-                    <TextInput
-                        type="text"
-                        placeholder="Enter vehicle name"
-                        className="w-2/6"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                    <PrimaryButton onClick={handleSearch}>Search</PrimaryButton>
+        <AuthenticatedLayout user={auth.user}>
+            <h1 className="mt-5 text-md font-bold"> Track vehicles location</h1>
+            <main className="mx-5 flex flex-col h-screen">
+                <div className="mt-6 flex overflow-x-auto space-x-4">
+                    {vehicles.map((vehicle) => (
+                        <div
+                            key={vehicle.id}
+                            className="p-4 rounded-md bg-gray-50 flex-shrink-0 shadow-md flex cursor-pointer"
+                            onClick={() => handleVehicleClick(vehicle)}
+                            style={{ minWidth: "200px" }}
+                        >
+                            <img
+                                src={`/storage/${vehicle.image}`}
+                                alt=""
+                                className="mr-2 h-10 object-contain rounded-t-lg"
+                            />
+                            <div className="f">
+                                <h2 className="font-bold text-xs">
+                                    {vehicle.name}
+                                </h2>
+                                <h2 className="font-bold text-sm">
+                                    {vehicle.number}
+                                </h2>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                <div className="mt-6">
+                <div className="flex-1 mt-6">
                     <MapComp
                         selectedVehicle={selectedVehicle}
                         center={center}
                     />
                 </div>
-                <h1 className="text-center mt-5 font-bold italic">
-                    Track your vehicle location
-                </h1>
             </main>
-        </AdminAuthenticatedLayout>
+        </AuthenticatedLayout>
     );
 };
 

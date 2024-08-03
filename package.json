@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@material-tailwind/react": "^2.1.9",
+        "@turf/turf": "^7.0.0",
         "apexcharts": "^3.49.2",
         "date-fns": "^3.6.0",
         "jspdf": "^2.5.1",

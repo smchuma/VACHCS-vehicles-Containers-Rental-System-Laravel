@@ -44,13 +44,6 @@ export const adminSidebarData = [
         icon: <FaUserAlt size={20} />,
     },
 
-    {
-        id: 6,
-        name: "Tracking",
-        href: "/admin/tracking",
-        icon: <MdSpatialTracking size={20} />,
-    },
-    // {
     //     id: 7,
     //     name: "Report Management",
     //     href: "/admin/reports",
@@ -78,5 +71,10 @@ export const EmpSidebarData = [
         href: "/reports",
         icon: <TbReportSearch className="text-black" size={25} />,
         label: "Reports",
+    },
+    {
+        href: "/tracking",
+        icon: <MdSpatialTracking className="text-black" size={25} />,
+        label: "Tracking",
     },
 ];

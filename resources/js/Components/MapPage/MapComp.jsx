@@ -15,7 +15,7 @@ const VehicleMarker = ({ vehicle }) => {
 
     useEffect(() => {
         if (vehicle) {
-            map.flyTo([vehicle.lat, vehicle.lng], 13);
+            map.flyTo([vehicle.lat, vehicle.lng], 9);
         }
     }, [vehicle, map]);
 

@@ -30,6 +30,8 @@ Route::get('/rentals-orders', [RentalOrdersController::class, 'index'])->name('r
 Route::delete('/rentals-orders/{id}', [RentalOrdersController::class, 'destroy'])->name('rental-orders.destroy');
 Route::get('/rentals/{status}', [RentalOrdersController::class, 'getRentalsByStatus']);
 Route::get('/print-receipt/{id}', [RentalOrdersController::class, 'printReceipt'])->name('print-receipt');
+Route::get('/tracking', [TrackingController::class, 'index'] )->name('tracking');
+
 
 
 
@@ -83,7 +85,6 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::get('/customers', [CustomerController::class, 'index'] )->name('customer');
 
-        Route::get('/tracking', [TrackingController::class, 'index'] )->name('tracking');
 
         Route::post('/logout', [AdminDashboard::class, 'logout'])->name('admin.logout');
 
