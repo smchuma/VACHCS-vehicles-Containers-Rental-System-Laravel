@@ -4,14 +4,14 @@ import InputLabel from "./InputLabel";
 import PrimaryButton from "./PrimaryButton";
 import { Link, useForm } from "@inertiajs/react";
 import { differenceInDays, format } from "date-fns";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { CiSearch } from "react-icons/ci";
 import Modal from "./Modal";
 import CustomerSearch from "./Customers/CustomerSearch";
 import CustomerDetails from "./Customers/CustomerDetails";
 import { Button } from "@material-tailwind/react";
 
-const CustomerForm = ({ vehicle }) => {
+const CustomerForm = ({ vehicle, user }) => {
     const generateRentalOrderNumber = () => {
         const randomNumber = Math.floor(Math.random() * 900000) + 100000;
         return `REN-${randomNumber}`;
@@ -82,19 +82,22 @@ const CustomerForm = ({ vehicle }) => {
 
     return (
         <>
-            <div className="flex justify-end items-center mb-4 px-2 border border-gray-500 rounded-lg w-full">
-                <CiSearch size={25} />
-                <TextInput
-                    type="text"
-                    onClick={openModal}
-                    placeholder="Click to search customer"
-                    className=" border-0 bg-transparent placeholder:text-gray-600 w-full outline-none focus:ring-0"
-                />
-                <Modal show={open} onClose={closeModal}>
-                    <CustomerSearch onSelect={handleCustomerSelect} />
-                </Modal>
-            </div>
-            <CustomerDetails selectedCustomer={selectedCustomer} />
+            {user.role !== 2 && (
+                <div className="flex justify-end items-center mb-4 px-2 border border-gray-500 rounded-lg w-full">
+                    <CiSearch size={25} />
+                    <TextInput
+                        type="text"
+                        onClick={openModal}
+                        placeholder="Click to search customer"
+                        className=" border-0 bg-transparent placeholder:text-gray-600 w-full outline-none focus:ring-0"
+                    />
+                    <Modal show={open} onClose={closeModal}>
+                        <CustomerSearch onSelect={handleCustomerSelect} />
+                    </Modal>
+                </div>
+            )}
+
+            <CustomerDetails selectedCustomer={selectedCustomer} user={user} />
             <form
                 onSubmit={handleSubmit}
                 className="rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2"
@@ -103,7 +106,7 @@ const CustomerForm = ({ vehicle }) => {
                     <div className="md:w-1/2 px-3">
                         <InputLabel
                             className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                            for="grid-start-date"
+                            htmlFor="grid-start-date"
                             required
                         >
                             Start date
@@ -126,7 +129,7 @@ const CustomerForm = ({ vehicle }) => {
                     <div className="md:w-1/2 px-3">
                         <InputLabel
                             className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                            for="grid-end-date"
+                            htmlFor="grid-end-date"
                             required
                         >
                             End Date
@@ -151,7 +154,7 @@ const CustomerForm = ({ vehicle }) => {
                     <div className="md:w-1/2 px-3 mb-6 md:mb-0">
                         <InputLabel
                             className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                            for="grid-number-of-days"
+                            htmlFor="grid-number-of-days"
                         >
                             Number of Days
                         </InputLabel>
@@ -166,7 +169,7 @@ const CustomerForm = ({ vehicle }) => {
                     <div className="md:w-1/2 px-3">
                         <InputLabel
                             className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                            for="grid-total-price"
+                            htmlFor="grid-total-price"
                         >
                             Total Price
                         </InputLabel>

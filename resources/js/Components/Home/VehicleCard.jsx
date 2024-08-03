@@ -72,7 +72,7 @@ const VehicleCard = ({ vehicle }) => {
                         {vehicle.capacity}
                     </div>
                     <div className="text-sm font-bold">
-                        TSH {vehicle.pricePerDay}/D
+                        TSH {vehicle.price_per_day}/D
                     </div>
                 </div>
             </CardFooter>

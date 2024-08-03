@@ -23,7 +23,7 @@ const VehicleShow = () => {
                         <VehicleShowImage vehicle={vehicle} />
                     </div>
                     <div className="flex-1">
-                        <CustomerForm vehicle={vehicle} />
+                        <CustomerForm vehicle={vehicle} user={auth.user} />
                     </div>
                 </div>
             </div>

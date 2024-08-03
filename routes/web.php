@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\VehicleController;
 use App\Http\Controllers\Employee\HomeController;
 use App\Http\Controllers\Employee\RentalOrdersController;
 use App\Http\Controllers\Employee\VehicleRentalController;
+use App\Http\Controllers\MyOrdersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrackingController;
 use Illuminate\Foundation\Application;
@@ -31,6 +32,8 @@ Route::delete('/rentals-orders/{id}', [RentalOrdersController::class, 'destroy']
 Route::get('/rentals/{status}', [RentalOrdersController::class, 'getRentalsByStatus']);
 Route::get('/print-receipt/{id}', [RentalOrdersController::class, 'printReceipt'])->name('print-receipt');
 Route::get('/tracking', [TrackingController::class, 'index'] )->name('tracking');
+Route::get('/my-orders', [MyOrdersController::class, 'index'])->name('my-orders');
+
 
 
 

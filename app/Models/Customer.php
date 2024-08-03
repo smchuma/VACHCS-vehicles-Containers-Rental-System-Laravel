@@ -15,7 +15,9 @@ class Customer extends Model
         'phone_number',
         'email',
         'address',
-        'city'
+        'user_id',
+        'city',
+        'id'
     ];
 
     public function rentals() {

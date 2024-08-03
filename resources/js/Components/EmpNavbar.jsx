@@ -1,4 +1,4 @@
-import { usePage } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import Dropdown from "./Dropdown";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import ApplicationLogo from "./ApplicationLogo";
@@ -6,10 +6,12 @@ import ApplicationLogo from "./ApplicationLogo";
 const EmpNavbar = ({ user }) => {
     return (
         <nav className="flex py-5 justify-between sticky shadow-md  z-50 bg-white top-0  pr-11 ">
-            <div className="flex gap-2 items-center pl-5 cursor-pointer">
-                <img src="/images/truck3.png" className="h-5" alt="logo" />
-                <ApplicationLogo className="logo" />
-            </div>
+            <Link href="/">
+                <div className="flex gap-2 items-center pl-5 cursor-pointer">
+                    <img src="/images/truck3.png" className="h-5" alt="logo" />
+                    <ApplicationLogo className="logo" />
+                </div>
+            </Link>
             <div className="sm:flex sm:items-center sm:ms-6 gap-4">
                 <IoIosNotificationsOutline className="text-xl" />
                 <div className="relative ">
@@ -42,6 +44,11 @@ const EmpNavbar = ({ user }) => {
                             <Dropdown.Link href={route("profile.edit")}>
                                 Profile
                             </Dropdown.Link>
+                            {user.role == 2 && (
+                                <Dropdown.Link href={route("my-orders")}>
+                                    My rentals
+                                </Dropdown.Link>
+                            )}
                             <Dropdown.Link
                                 href={route("logout")}
                                 method="post"

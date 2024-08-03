@@ -54,7 +54,6 @@ class HomeController extends Controller
         $request->validate([
             'rental_order_number' => 'required|string|max:255',
             'vehicle_id' => 'required|exists:vehicles,id',
-            'customer_id' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'total_price' => 'required|integer',
@@ -68,11 +67,33 @@ class HomeController extends Controller
             return redirect()->back()->withErrors(['vehicle_id' => 'This vehicle is already rented.']);
         }
 
+        $customer_id = $request->customer_id;
+
+        if (auth()->user()->role == 2) {
+            $user = auth()->user();
+
+            // Check if the customer already exists
+            $customer = Customer::where('user_id', $user->id)->first();
+            if (!$customer) {
+                // Create a new customer
+                $customer = Customer::create([
+                    'name' => $user->name,
+                    "id_number" => $user->license_number,
+                    'id' => $user->id,
+                    'email' => $user->email,
+                    'phone_number' => $user->phone_number,
+                    'user_id' => $user->id,
+                ]);
+            }
+
+            $customer_id = $customer->id;
+        }
+
 
         // Create the rental
         $rental = Rental::create([
             'rental_order_number' => $request->rental_order_number,
-            'customer_id' => $request->customer_id,
+            'customer_id' => $customer_id,
             'vehicle_id' => $request->vehicle_id,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
@@ -86,6 +107,10 @@ class HomeController extends Controller
         $vehicle->status = 'Rented';
         $vehicle->save();
 
-        return redirect()->route('rental-orders.index')->with('success', 'Rental created successfully.');
+        if ($user->role === 2) {
+            return redirect()->route('my-orders')->with('success', 'Rental created successfully.');
+        } else {
+            return redirect()->route('rental-orders.index')->with('success', 'Rental created successfully.');
+        }
     }
 }

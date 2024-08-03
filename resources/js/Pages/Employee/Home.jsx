@@ -49,7 +49,10 @@ export default function Home({ auth, vehicles }) {
                             </p>
                         </div>
                     )}
-                    <VehicleList vehicles={filteredData} />
+                    <VehicleList
+                        vehicles={filteredData}
+                        role={auth.user.role}
+                    />
                 </div>
             </div>
         </AuthenticatedLayout>

@@ -11,9 +11,15 @@ export default function Authenticated({ user, header, children }) {
                         <EmpNavbar user={user} header={header} />
                         <main className="bg-gray-100 min-h-screen ">
                             <div className="emp-sidebar">
-                                <EmpSidebar />
+                                {user.role !== 2 && <EmpSidebar />}
                             </div>
-                            <div className="ml-0 md:ml-80">{children}</div>
+                            <div
+                                className={`${
+                                    user.role !== 2 ? "ml-0 md:ml-80" : "ml-0"
+                                }`}
+                            >
+                                {children}
+                            </div>
                         </main>
                     </div>
                 </div>
